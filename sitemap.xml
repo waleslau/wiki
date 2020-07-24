@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/about/</loc>
+    <lastmod>2019-10-24</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.8</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/FFmpeg常用命令及参数/</loc>
+    <lastmod>2020-06-21</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/使用JavaScript实现页面跳转/</loc>
+    <lastmod>2020-06-05</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/3-1-开放式最短路径优先协议-OSPF/</loc>
+    <lastmod>2020-04-23</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/2-路由信息协议-RIP/</loc>
+    <lastmod>2020-04-23</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/</loc>
+    <lastmod>2020-04-12</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/MSYS2-environment-configuration/</loc>
+    <lastmod>2020-03-23</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Debian中为用户添加sudo权限/</loc>
+    <lastmod>2020-03-19</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/最短路径优先算法/</loc>
+    <lastmod>2020-03-17</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/1_IP路由基础/</loc>
+    <lastmod>2020-03-17</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/STP配置边缘端口的两种方式/</loc>
+    <lastmod>2020-03-05</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Windows刷新DNS/</loc>
+    <lastmod>2020-02-17</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/添加_Windows_Terminal_到右键菜单/</loc>
+    <lastmod>2020-02-06</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/</loc>
+    <lastmod>2020-01-30</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/</loc>
+    <lastmod>2020-01-30</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Front-end_basics_1/</loc>
+    <lastmod>2020-01-28</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/About_MySQL_management/</loc>
+    <lastmod>2020-01-22</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/MySQL_CURD/</loc>
+    <lastmod>2019-11-06</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/在Linux完整迁移网站_数据库/</loc>
+    <lastmod>2019-10-12</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Install_the_latest_Python_on_CentOS7/</loc>
+    <lastmod>2019-08-14</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/Arch_Linux_Installation_guide/</loc>
+    <lastmod>2019-07-27</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/typography/</loc>
+    <lastmod>2018-11-09</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+</urlset>

@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>在Linux完整迁移网站&数据库 - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="Step 1. 打包网站目录" />
+<meta property="og:title" content="在Linux完整迁移网站&数据库 - 热心市民の知识库" />
+<meta property="og:description" content="Step 1. 打包网站目录" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/在Linux完整迁移网站_数据库/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2019-10-12T22:20:00+08.00" />
+<meta name="twitter:title" content="在Linux完整迁移网站&数据库 - 热心市民の知识库" />
+<meta name="twitter:description" content="Step 1. 打包网站目录" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class=" "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class=""><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class="open "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class="open "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class="current"><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class=" "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class=""><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">在Linux完整迁移网站&数据库</h1>
+        <p class="post-meta">
+            <time>October 12 2019</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/Linux/">#Linux</a>
+                </span>
+                
+                <span>
+                    <a href="/wiki/tag/mysqldump/">#mysqldump</a>
+                </span>
+                
+                <span>
+                    <a href="/wiki/tag/MySQL/">#MySQL</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><h2>Step 1. 打包网站目录</h2>
+<div class="highlight"><pre><span></span>$ tar -zcvf website.tar.gz /path/to/your_website
+</pre></div>
+<h2>Step 2. 导出数据库</h2>
+<ul>
+<li>导出整个数据库  </li>
+</ul>
+<div class="highlight"><pre><span></span>$ mysqldump -u 用户名 -p 数据库名 &gt; /path/to/导出的文件名
+例:
+$ mysqldump -u oopsky -p oopsky &gt; oopsky.sql
+</pre></div>
+<p>下面是有关数据库导出(mysqldump方式)的一些扩展知识，更多操作可以执行<code>mysqldump --help</code>或<code>man mysqldump</code>自行查看</p>
+<ul>
+<li>导出一个表  </li>
+</ul>
+<div class="highlight"><pre><span></span>$ mysqldump -u 用户名 -p 数据库名 表名&gt; 导出的文件名
+例:
+$ mysqldump -u oopsky -p oopsky  friends &gt; friends.sql
+</pre></div>
+<ul>
+<li>导出一个数据库结构  </li>
+</ul>
+<div class="highlight"><pre><span></span>$ mysqldump -u oopsky -p -d --add-drop-table oopsky &gt; oopsky.sql
+</pre></div>
+<ul>
+<li>可能用到的一些mysqldump参数的解释  </li>
+</ul>
+<div class="highlight"><pre><span></span>-n, --no-create-db：禁止生成创建数据库语句；
+-t, --no-create-info：禁止生成创建数据库库表语句；
+-d, --no-data:  没有数据
+--add-drop-table：在每个创建数据库表语句前添加删除数据库表的语句；
+</pre></div>
+<h2>Step 3. 在新服务器建立相同软件环境</h2>
+<p><em>略</em></p>
+<h2>Step 4. 创建与原来相同的数据库</h2>
+<p>在终端执行下面命令使用root账户登陆到mysql</p>
+<div class="highlight"><pre><span></span>$ mysqldump -u 用户名 -p
+例:
+$ mysql -u root -p
+</pre></div>
+<p>然后执行以下命令创建数据库及用户</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">mydatabase</span><span class="p">;</span>
+
+<span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="ss">&quot;username&quot;</span><span class="o">@</span><span class="ss">&quot;localhost&quot;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="ss">&quot;password&quot;</span><span class="p">;</span>
+
+<span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">ON</span> <span class="n">mydatabase</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="ss">&quot;username&quot;</span><span class="o">@</span><span class="ss">&quot;localhost&quot;</span><span class="p">;</span>
+
+<span class="o">&gt;</span> <span class="n">FLUSH</span> <span class="k">PRIVILEGES</span><span class="p">;</span>
+</pre></div>
+<blockquote><p>对于上述语句，这里简单解释一下：<br>
+1、create user 语句用于创建用户(及密码)<br>
+其中 <code>usermane</code> 是用户名，<code>psaaword</code> 是密码。
+<code>localhost</code> 则表明是本地用户。<br>
+2、grant 语句用于对用户进行赋权<br>
+其中，<code>all</code> 表示所有的权限，包括对数据的增删改查
+及更改数据库；
+<code>mydatabase</code> 为具体某个数据库名，<code>mydatabase.*</code> 表示该数据库下所有的表（以及视图等）；
+<code>username</code> 则为刚才所建立的用户名。<br>
+3、flush 语句使更改生效。<br>
+<strong>这里创建的数据库名，用户名，用户密码必须和原数据库保持一致</strong></p>
+<h2>Step 5. 导入数据</h2>
+<ul>
+<li>可以使用SFTP从旧服务器获取先前导出的文件,不需要额外配置，具体方法请自行百度</li>
+</ul>
+</blockquote>
+<p>使用use命令进入数据库(MySQL视图)，然后用source命令导入先前导出的文件</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">use</span> <span class="n">oopsky</span>
+
+<span class="o">&gt;</span> <span class="k">source</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">oopsky</span><span class="p">.</span><span class="k">sql</span>
+</pre></div>
+<p>也可以使用mysqldump命令导入数据，感兴趣的朋友可以自行搜索</p>
+<h2>Step 6. 把网站文件解压到新的位置</h2>
+<div class="highlight"><pre><span></span>$ tar -zxvf website.tar.gz
+$ <span class="nb">cd</span> website
+$ mv ./* /path/to/your_website
+</pre></div>
+<p>检查一下网站（新）目录内文件属主，属组，还有权限，我这里属主属组都是www,(属主属组跟着服务器默认网站目录走)，目录权限755,文件权限644</p>
+<div class="highlight"><pre><span></span><span class="c1"># 递归修改属主属组为www(视你自己实际情况而定)</span>
+$ chown -R www.www path/to/website
+<span class="c1"># 修改目录权限为755</span>
+$ find path -type d -exec chmod <span class="m">755</span> <span class="o">{}</span> path/to/website
+<span class="c1"># 修改文件权限为644</span>
+$ find path -type f -exec chmod <span class="m">644</span> <span class="o">{}</span> path/to/website
+</pre></div>
+<hr>
+<p>到此为止，网站就迁移完毕了...</p>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/wiki/archives/MySQL_CURD/">
+                    <time>November 06 2019</time>
+                    <span>SQL 学习笔记</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">
+                    <time>August 14 2019</time>
+                    <span>在 CentOS7 安装最新的Python程序</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/在Linux完整迁移网站_数据库/" 
+            data-flag-title="在Linux完整迁移网站&数据库">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

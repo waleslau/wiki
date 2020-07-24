@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>使用Docker快速搭建MongoDB环境 - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="拉取官方最新镜像" />
+<meta property="og:title" content="使用Docker快速搭建MongoDB环境 - 热心市民の知识库" />
+<meta property="og:description" content="拉取官方最新镜像" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2020-01-30T14:23:00+08.00" />
+<meta name="twitter:title" content="使用Docker快速搭建MongoDB环境 - 热心市民の知识库" />
+<meta name="twitter:description" content="拉取官方最新镜像" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class=" "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class=""><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class=" "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class=" "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class=""><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class="open "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class="open "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class="current"><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class=" "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class=""><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">使用Docker快速搭建MongoDB环境</h1>
+        <p class="post-meta">
+            <time>January 30 2020</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/MongoDB/">#MongoDB</a>
+                </span>
+                
+                <span>
+                    <a href="/wiki/tag/Docker/">#Docker</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><h2>拉取官方最新镜像</h2>
+<div class="highlight"><pre><span></span>$ docker pull mongo
+</pre></div>
+<h2>运行容器</h2>
+<div class="highlight"><pre><span></span>$ docker run -itd --name mongo -p <span class="m">27017</span>:27017 mongo --auth
+</pre></div>
+<p>参数说明：</p>
+<ul>
+<li><code>-p 27017:27017</code> ：映射容器服务的 27017 端口到宿主机的 27017 端口。这样外部可以直接通过宿主机 ip:27017 访问到 mongo 的服务。</li>
+<li><code>--auth</code>：需要认证才能访问mongo。  </li>
+</ul>
+<h2>收尾设置</h2>
+<div class="highlight"><pre><span></span><span class="c1"># 进入容器</span>
+$ docker <span class="nb">exec</span> -it mongo mongo admin
+<span class="c1"># 添加用户</span>
+&gt; db.createUser<span class="o">({</span> user:<span class="s1">&#39;admin&#39;</span>,pwd:<span class="s1">&#39;000000&#39;</span>,roles:<span class="o">[</span> <span class="o">{</span> role:<span class="s1">&#39;userAdminAnyDatabase&#39;</span>, db: <span class="s1">&#39;admin&#39;</span><span class="o">}</span>, <span class="s2">&quot;readWriteAnyDatabase&quot;</span> <span class="o">]})</span><span class="p">;</span>
+<span class="c1"># 尝试认证</span>
+&gt; db.auth<span class="o">(</span><span class="s2">&quot;admin&quot;</span>,<span class="s2">&quot;000000&quot;</span><span class="o">)</span>
+<span class="m">1</span>
+<span class="c1"># 返回 1 即认证成功</span>
+</pre></div>
+<p>现在可以使用<a href="https://www.mongodbmanager.com/download">NoSQL Manager for MongoDB</a>或者<a href="https://robomongo.org/download">Robo 3T</a>等工具来管理数据库了(直接在环境所在系统里<code>docker exec -it mongo mongo admin</code> 然后认证也可以)</p>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">
+                    <time>January 30 2020</time>
+                    <span>配置 VS Code 一键为MarkDown文档添加 Front-matter</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/Front-end_basics_1/">
+                    <time>January 28 2020</time>
+                    <span>前端基础之 HTML/CSS 初接触</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/Quickly_set_up_MongoDB_environment_with_Docker/" 
+            data-flag-title="使用Docker快速搭建MongoDB环境">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

@@ -1,0 +1,636 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>SQL 学习笔记 - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="这是我在看廖雪峰的SQL教程时记录的笔记，
+
+" />
+<meta property="og:title" content="SQL 学习笔记 - 热心市民の知识库" />
+<meta property="og:description" content="这是我在看廖雪峰的SQL教程时记录的笔记，
+
+" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/MySQL_CURD/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2019-11-06T11:19:00+08.00" />
+<meta name="twitter:title" content="SQL 学习笔记 - 热心市民の知识库" />
+<meta name="twitter:description" content="这是我在看廖雪峰的SQL教程时记录的笔记，
+
+" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class=" "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class=""><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class=" "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class=" "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class=""><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class="open "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class="open "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class="current"><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">SQL 学习笔记</h1>
+        <p class="post-meta">
+            <time>November 06 2019</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/MySQL/">#MySQL</a>
+                </span>
+                
+                <span>
+                    <a href="/wiki/tag/SQL/">#SQL</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><blockquote><p>这是我在看<a href="https://www.liaoxuefeng.com/wiki/1177760294764384">廖雪峰的SQL教程</a>时记录的笔记，</p>
+</blockquote>
+<!--more-->
+
+
+<h2>SQL 简介</h2>
+<p>SQL = Structured Query Language( 结构化查询语言 )</p>
+<p>SQL语言定义了这么几种操作数据库的能力：</p>
+<ul>
+<li><p>DDL：Data Definition Language</p>
+<p>DDL允许用户定义数据，也就是创建表、删除表、修改表结构这些操作。通常，DDL由数据库管理员执行。</p>
+</li>
+<li><p>DML：Data Manipulation Language</p>
+<p>DML为用户提供添加、删除、更新数据的能力，这些是应用程序对数据库的日常操作。</p>
+</li>
+<li><p>DQL：Data Query Language</p>
+<p>DQL允许用户查询数据，这也是通常最频繁的数据库日常操作。</p>
+</li>
+</ul>
+<h2>数据库类别</h2>
+<ul>
+<li>关系型数据库<ul>
+<li>MySQL </li>
+<li>SQLite</li>
+<li>Microsoft SQL Server </li>
+<li>Oracle </li>
+<li>PostgreSQL</li>
+</ul>
+</li>
+<li>非关系型数据库<ul>
+<li>MongoDB</li>
+<li>HBase</li>
+<li>Cassandra</li>
+<li>Dynamo<blockquote><p>以上所举并非全部</p>
+<h2>关系模型</h2>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3>主键</h3>
+<p>主键是关系表中记录的唯一标识。选取主键的一个基本原则是：不使用任何业务相关的字段作为主键。</p>
+<h3>外键</h3>
+<p>外键是用来关联 2 个表结构的，表直接的约束分为以下 3 种：</p>
+<ol>
+<li>一对一<ul>
+<li>一个表的记录对应到另一个表的唯一一个记录。 </li>
+</ul>
+</li>
+<li>一对多<ul>
+<li>通过一个表的外键关联到另一个表 </li>
+</ul>
+</li>
+<li>多对多<ul>
+<li>通过一个中间表，关联两个一对多关系，就形成了多对多关系 </li>
+</ul>
+</li>
+</ol>
+<h3>索引</h3>
+<p>索引是关系数据库中对某一列或多个列的值进行预排序的数据结构。通过使用索引，可以让数据库系统不必扫描整个表，而是直接定位到符合条件的记录，这样就大大加快了查询速度。</p>
+<blockquote><p>关于主键、外键、索引请到<a href="https://www.liaoxuefeng.com/wiki/1177760294764384/1218728991649984"> SQL教程-关系模型</a>查看详细解释</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="c1">-- 这是SQL笔记所用DB源文件（来自廖雪峰的SQL教程）</span>
+<span class="c1">-- 连接到数据库后这部分代码块复制粘贴到命令行执行即可</span>
+<span class="c1">-- 如果test数据库不存在，就创建test数据库：</span>
+<span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">test</span><span class="p">;</span>
+
+<span class="c1">-- 切换到test数据库</span>
+<span class="n">USE</span> <span class="n">test</span><span class="p">;</span>
+
+<span class="c1">-- 删除classes表和students表（如果存在）：</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">classes</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">students</span><span class="p">;</span>
+
+<span class="c1">-- 创建classes表：</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">classes</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="nb">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span> <span class="c1">-- 设置id为自增整数类型</span>
+    <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="c1">--设置id为主键</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+
+<span class="c1">-- 创建students表：</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">students</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="nb">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">class_id</span> <span class="nb">BIGINT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">name</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">gender</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="n">score</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+
+<span class="c1">-- 插入classes记录：</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">classes</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;一班&#39;</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">classes</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;二班&#39;</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">classes</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;三班&#39;</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">classes</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;四班&#39;</span><span class="p">);</span>
+
+<span class="c1">-- 插入students记录：</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;小明&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;小红&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;小军&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">88</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;小米&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">73</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;小白&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">81</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;小兵&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">55</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;小林&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">85</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;小新&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">91</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;小王&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">89</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">students</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;小丽&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">85</span><span class="p">);</span>
+
+<span class="c1">-- OK:</span>
+<span class="k">SELECT</span> <span class="s1">&#39;ok&#39;</span> <span class="k">as</span> <span class="s1">&#39;result:&#39;</span><span class="p">;</span>
+</pre></div>
+<h2>查</h2>
+<h4>1. 基本查询</h4>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span>
+</pre></div>
+<ul>
+<li>也可用于简单计算(聊胜于无)</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="mi">100</span><span class="o">+</span><span class="mi">200</span><span class="p">;</span>
+</pre></div>
+<blockquote><p>不带FROM子句的SELECT语句有一个有用的用途，就是用来判断当前到数据库的连接是否有效。许多检测工具会执行一条SELECT 1;来测试数据库连接。</p>
+</blockquote>
+<h4>2. 条件查询</h4>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">WHERE</span> <span class="o">&lt;</span><span class="err">条件表达式</span><span class="o">&gt;</span>
+<span class="c1">-- 满足条件1并且满足条件2</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">WHERE</span> <span class="o">&lt;</span><span class="err">条件表达式</span><span class="mi">1</span><span class="o">&gt;</span> <span class="k">AND</span> <span class="o">&lt;</span><span class="err">条件表达式</span><span class="mi">2</span><span class="o">&gt;</span>
+<span class="c1">-- 满足条件1或者满足条件2</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">WHERE</span> <span class="o">&lt;</span><span class="err">条件表达式</span><span class="mi">1</span><span class="o">&gt;</span> <span class="k">OR</span> <span class="o">&lt;</span><span class="err">条件表达式</span><span class="mi">2</span><span class="o">&gt;</span>
+
+<span class="c1">-- 如果不加括号，条件运算按照NOT、AND、OR的优先级进行，即NOT优先级最高，其次是AND，最后是OR。加上括号可以改变优先级。</span>
+<span class="c1">--</span>
+</pre></div>
+<h5>常用的条件表达式</h5>
+<table>
+<thead><tr>
+<th style="text-align:left">条件</th>
+<th style="text-align:left">表达式举例1</th>
+<th style="text-align:center">表达式举例2</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">使用=判断相等</td>
+<td style="text-align:left">score = 80</td>
+<td style="text-align:center">name = 'abc'</td>
+<td style="text-align:left">字符串需要用单引号括起来</td>
+</tr>
+<tr>
+<td style="text-align:left">使用&gt;判断大于</td>
+<td style="text-align:left">score &gt; 80</td>
+<td style="text-align:center">name &gt; 'abc'</td>
+<td style="text-align:left">字符串比较根据ASCII码，中文字符比较根据数据库设置</td>
+</tr>
+<tr>
+<td style="text-align:left">使用&gt;=判断大于或相等</td>
+<td style="text-align:left">score &gt;= 80</td>
+<td style="text-align:center">name &gt;= 'abc'</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">使用&lt;判断小于</td>
+<td style="text-align:left">score &lt; 80</td>
+<td style="text-align:center">name &lt;= 'abc'</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">使用&lt;=判断小于或相等</td>
+<td style="text-align:left">score &lt;= 80</td>
+<td style="text-align:center">name &lt;= 'abc'</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">使用&lt;&gt;判断不相等</td>
+<td style="text-align:left">score &lt;&gt; 80</td>
+<td style="text-align:center">name &lt;&gt; 'abc'</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">使用LIKE判断相似</td>
+<td style="text-align:left">name LIKE 'ab%'</td>
+<td style="text-align:center">name LIKE '%bc%'</td>
+<td style="text-align:left">%表示任意字符，例如'ab%'将匹配'ab'，'abc'，'abcd'</td>
+</tr>
+</tbody>
+</table>
+<blockquote><p>在 where like 的条件查询中，SQL 提供了四种匹配方式。</p>
+<ol>
+<li><strong>%</strong>：表示任意 0 个或多个字符。可匹配任意类型和长度的字符，有些情况下若是中文，请使用两个百分号（%%）表示。</li>
+<li><strong>_</strong>：表示任意单个字符。匹配单个任意字符，它常用来限制表达式的字符长度语句。</li>
+<li><strong>[]</strong>：表示括号内所列字符中的一个（类似正则表达式）。指定一个字符、字符串或范围，要求所匹配对象为它们中的任一个。</li>
+<li><strong><sup id="fn_ref_1"><a href="#fn_1">1</a></sup></strong> ：表示不在括号所列之内的单个字符。其取值和 [] 相同，但它要求所匹配对象为指定字符以外的任一个字符。</li>
+<li>查询内容包含通配符时,由于通配符的缘故，导致我们查询特殊字符 “%”、“_”、“[” 的语句无法正常实现，而把特殊字符用 “[ ]” 括起便可正常查询。</li>
+</ol>
+</blockquote>
+<h4>3. 投影查询(查询表的指定列)</h4>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="err">列</span><span class="mi">1</span><span class="p">,</span> <span class="err">列</span><span class="mi">2</span><span class="p">,</span> <span class="err">列</span><span class="mi">3</span> <span class="k">FROM</span> <span class="p">...</span>
+<span class="c1">-- 查询结果显示自定义列名</span>
+<span class="k">SELECT</span> <span class="err">列</span><span class="mi">1</span> <span class="err">别名</span><span class="mi">1</span><span class="p">,</span> <span class="err">列</span><span class="mi">2</span> <span class="err">别名</span><span class="mi">2</span><span class="p">,</span> <span class="err">列</span><span class="mi">3</span> <span class="err">别名</span><span class="mi">3</span> <span class="k">FROM</span> <span class="p">...</span>
+</pre></div>
+<h4>4. 排序</h4>
+<div class="highlight"><pre><span></span><span class="c1">-- 默认排序规则:ASC(从小到大)</span>
+<span class="k">SELECT</span> <span class="p">...</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="err">列名</span><span class="o">&gt;</span>
+<span class="c1">-- DESC(从大到小)</span>
+<span class="k">SELECT</span> <span class="p">...</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="err">列名</span><span class="o">&gt;</span> <span class="k">DESC</span>
+<span class="c1">-- 若列名1有相同的数据，要进一步排序，可以继续添加列名</span>
+<span class="k">SELECT</span> <span class="p">...</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">&lt;</span><span class="err">列名</span><span class="mi">1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="err">列名</span><span class="mi">2</span><span class="o">&gt;</span>
+</pre></div>
+<h4>5. 分页查询</h4>
+<div class="highlight"><pre><span></span><span class="c1">-- 正常查询</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span>
+<span class="c1">-- 从结果中截取出M条记录</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">LIMIT</span> <span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span>
+<span class="c1">-- 从结果中截取出从第N+1条记录开始的M条记录</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">LIMIT</span> <span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span> <span class="k">OFFSET</span> <span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span>
+
+<span class="c1">-- OFFSET超过了查询的最大数量并不会报错，而是得到一个空的结果集</span>
+</pre></div>
+<h4>6. 聚合查询</h4>
+<div class="highlight"><pre><span></span><span class="c1">-- 查询某张表一共有多少条记录</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span>
+<span class="c1">-- 给它设置一个别名num,便于处理结果</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">num</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span>
+<span class="c1">-- 使用聚合查询并设置WHERE条件</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">boys</span> <span class="k">FROM</span> <span class="n">students</span> <span class="k">WHERE</span> <span class="n">class_id</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 特别注意：</span>
+<span class="c1">-- 如果聚合查询的WHERE条件没有匹配到任何行</span>
+<span class="c1">-- COUNT()会返回0，</span>
+<span class="c1">-- 而SUM()、AVG()、MAX()和MIN()会返回NULL：</span>
+</pre></div>
+<p>除了<code>COUNT()</code>函数外，SQL还提供了如下聚合函数：</p>
+<table>
+<thead><tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SUM</td>
+<td style="text-align:left">计算某一列的合计值，该列必须为数值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">AVG</td>
+<td style="text-align:left">计算某一列的平均值，该列必须为数值类型</td>
+</tr>
+<tr>
+<td style="text-align:left">MAX</td>
+<td style="text-align:left">计算某一列的最大值</td>
+</tr>
+<tr>
+<td style="text-align:left">MIN</td>
+<td style="text-align:left">计算某一列的最小值</td>
+</tr>
+</tbody>
+</table>
+<p>注意，<code>MAX()</code>和<code>MIN()</code>函数并不限于数值类型。如果是字符类型，<code>MAX()</code>和<code>MIN()</code>会返回排序最后和排序最前的字符。</p>
+<h5>分组聚合</h5>
+<div class="highlight"><pre><span></span><span class="c1">-- 按class_id分组:</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">num</span> <span class="k">FROM</span> <span class="n">students</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">class_id</span><span class="p">;</span>
+<span class="c1">-- </span>
+<span class="k">select</span> 
+<span class="n">class_id</span> <span class="err">班级</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="err">人数</span> <span class="p">,</span> <span class="k">avg</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="err">平均分</span> 
+<span class="k">from</span> <span class="n">students</span> 
+<span class="k">group</span> <span class="k">by</span> <span class="n">class_id</span><span class="p">;</span>
+<span class="c1">--</span>
+</pre></div>
+<h4>7. 多表查询</h4>
+<div class="highlight"><pre><span></span><span class="c1">-- </span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表</span><span class="mi">1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="err">表</span><span class="mi">2</span><span class="o">&gt;</span>
+<span class="c1">-- set alias 给列设置别名:</span>
+<span class="k">SELECT</span>
+    <span class="n">students</span><span class="p">.</span><span class="n">id</span> <span class="n">sid</span><span class="p">,</span>
+    <span class="n">students</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">students</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span>
+    <span class="n">students</span><span class="p">.</span><span class="n">score</span><span class="p">,</span>
+    <span class="n">classes</span><span class="p">.</span><span class="n">id</span> <span class="n">cid</span><span class="p">,</span>
+    <span class="n">classes</span><span class="p">.</span><span class="n">name</span> <span class="n">cname</span>
+<span class="k">FROM</span> <span class="n">students</span><span class="p">,</span> <span class="n">classes</span><span class="p">;</span>
+<span class="c1">-- set table alias 给表设置别名:</span>
+<span class="k">SELECT</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="n">sid</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">score</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">id</span> <span class="n">cid</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">cname</span>
+<span class="k">FROM</span> <span class="n">students</span> <span class="n">s</span><span class="p">,</span> <span class="n">classes</span> <span class="k">c</span><span class="p">;</span>
+<span class="c1">-- 多表查询添加WHERE条件</span>
+<span class="k">SELECT</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="n">sid</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">.</span><span class="n">score</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">id</span> <span class="n">cid</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">cname</span>
+<span class="k">FROM</span> <span class="n">students</span> <span class="n">s</span><span class="p">,</span> <span class="n">classes</span> <span class="k">c</span>
+<span class="k">WHERE</span> <span class="n">s</span><span class="p">.</span><span class="n">gender</span> <span class="o">=</span> <span class="s1">&#39;M&#39;</span> <span class="k">AND</span> <span class="k">c</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+<h4>8. 连接查询</h4>
+<div class="highlight"><pre><span></span><span class="c1">-- 选出所有学生</span>
+<span class="k">SELECT</span> <span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">class_id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">score</span> <span class="k">FROM</span> <span class="n">students</span> <span class="n">s</span><span class="p">;</span>
+
+<span class="c1">-- 选出所有学生，同时返回班级名称</span>
+<span class="c1">-- 常用的一种内连接 INNER JOIN</span>
+<span class="k">SELECT</span> <span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">class_id</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">score</span>
+<span class="k">FROM</span> <span class="n">students</span> <span class="n">s</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">classes</span> <span class="k">c</span>
+<span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">class_id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+
+<span class="c1">-- 使用外连接 OUTER JOIN</span>
+<span class="k">SELECT</span> <span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">class_id</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">gender</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">score</span>
+<span class="k">FROM</span> <span class="n">students</span> <span class="n">s</span>
+<span class="k">RIGHT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">classes</span> <span class="k">c</span>
+<span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">class_id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+
+<span class="c1">-- INNER JOIN只返回同时存在于两张表的行数据</span>
+<span class="c1">-- RIGHT OUTER JOIN返回右表存在的行。如果某一行仅在右表存在，那么结果集就会以NULL填充剩下的字段</span>
+<span class="c1">-- LEFT OUTER JOIN返回左表存在的行。如果某一行仅在左表存在，那么结果集就会以NULL填充剩下的字段</span>
+<span class="c1">-- FULL OUTER JOIN，它会把两张表的所有记录全部选择出来，并且，自动把对方不存在的列填充为NULL：</span>
+</pre></div>
+<blockquote><p>INNER JOIN(内连接)查询的写法：</p>
+<ol>
+<li>先确定主表，仍然使用<code>FROM &lt;表1&gt;</code>的语法；</li>
+<li>再确定需要连接的表，使用<code>INNER JOIN &lt;表2&gt;</code>的语法；</li>
+<li>然后确定连接条件，使用<code>ON &lt;条件...&gt;</code>，这里的条件是<code>s.class_id = c.id</code>，表示<code>students</code>表的<code>class_id</code>列与<code>classes</code>表的<code>id</code>列相同的行需要连接；</li>
+<li>可选：加上<code>WHERE</code>子句、<code>ORDER BY</code>等子句。</li>
+</ol>
+</blockquote>
+<p><em>使用别名不是必须的，但可以更好地简化查询语句</em></p>
+<h2>增</h2>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="p">(</span><span class="err">字段</span><span class="mi">1</span><span class="p">,</span> <span class="err">字段</span><span class="mi">2</span><span class="p">,</span> <span class="p">...)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="err">值</span><span class="mi">1</span><span class="p">,</span> <span class="err">值</span><span class="mi">2</span><span class="p">,</span> <span class="p">...);</span>
+<span class="c1">-- 一次性添加多条新记录</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="p">(</span><span class="err">字段</span><span class="mi">1</span><span class="p">,</span> <span class="err">字段</span><span class="mi">2</span><span class="p">,</span> <span class="p">...)</span> <span class="k">VALUES</span> 
+<span class="p">(</span><span class="n">A值1</span><span class="p">,</span> <span class="n">A值2</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">(</span><span class="n">B值1</span><span class="p">,</span> <span class="n">B值2</span><span class="p">,</span> <span class="p">...);</span>
+</pre></div>
+<h2>改</h2>
+<div class="highlight"><pre><span></span><span class="k">UPDATE</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">SET</span> <span class="err">字段</span><span class="mi">1</span><span class="o">=</span><span class="err">值</span><span class="mi">1</span><span class="p">,</span> <span class="err">字段</span><span class="mi">2</span><span class="o">=</span><span class="err">值</span><span class="mi">2</span><span class="p">,</span> <span class="p">...</span> <span class="k">WHERE</span> <span class="p">...;</span>
+
+<span class="c1">-- 可以一次更新多条记录</span>
+
+<span class="k">UPDATE</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">SET</span> <span class="n">class_id</span><span class="o">=</span><span class="mi">3</span>  <span class="k">WHERE</span> <span class="n">id</span><span class="o">=</span><span class="mi">1</span> <span class="k">AND</span> <span class="n">id</span><span class="o">&gt;</span><span class="mi">2</span>
+
+<span class="c1">-- 在UPDATE语句中，更新字段时可以使用表达式</span>
+
+<span class="k">UPDATE</span> <span class="n">students</span> <span class="k">SET</span> <span class="n">score</span><span class="o">=</span><span class="n">score</span><span class="o">+</span><span class="mi">10</span> <span class="k">WHERE</span> <span class="n">score</span><span class="o">&lt;</span><span class="mi">80</span><span class="p">;</span>
+
+<span class="c1">-- 要特别小心，UPDATE语句可以没有WHERE条件</span>
+<span class="k">UPDATE</span> <span class="n">students</span> <span class="k">SET</span> <span class="n">score</span><span class="o">=</span><span class="mi">60</span><span class="p">;</span>
+<span class="c1">-- 这时，整个表的所有记录都会被更新。所以，在执行UPDATE语句时要非常小心，最好先用SELECT语句来测试WHERE条件是否筛选出了期望的记录集，然后再用UPDATE更新。</span>
+</pre></div>
+<h2>删</h2>
+<div class="highlight"><pre><span></span><span class="k">DELETE</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="err">表名</span><span class="o">&gt;</span> <span class="k">WHERE</span> <span class="p">...;</span>
+
+<span class="c1">-- 和UPDATE类似，DELETE语句也可以一次删除多条记录</span>
+<span class="c1">-- 删除students表中id在5-7之间的行</span>
+<span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">students</span> <span class="k">WHERE</span> <span class="n">id</span><span class="o">&gt;=</span><span class="mi">5</span> <span class="k">AND</span> <span class="n">id</span><span class="o">&lt;=</span><span class="mi">7</span><span class="p">;</span>
+<span class="c1">-- 和UPDATE类似，不带WHERE条件的DELETE语句会删除整个表的数据</span>
+<span class="c1">-- 在执行DELETE语句时也要非常小心，最好先用SELECT语句来测试WHERE条件是否筛选出了期望的记录集，然后再用DELETE删除。</span>
+</pre></div>
+<hr><div class="footnotes"><ol><li id="fn_1"> <a no-style href="#fn_ref_1">↩</a></li></ol></div></article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/wiki/archives/About_MySQL_management/">
+                    <time>January 22 2020</time>
+                    <span>MySQL管理</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/在Linux完整迁移网站_数据库/">
+                    <time>October 12 2019</time>
+                    <span>在Linux完整迁移网站&数据库</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/MySQL_CURD/" 
+            data-flag-title="SQL 学习笔记">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

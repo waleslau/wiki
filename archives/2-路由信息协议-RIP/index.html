@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>2-路由信息协议(RIP) - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了" />
+<meta property="og:title" content="2-路由信息协议(RIP) - 热心市民の知识库" />
+<meta property="og:description" content="这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/2-路由信息协议-RIP/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2020-04-23T20:17:00+08.00" />
+<meta name="twitter:title" content="2-路由信息协议(RIP) - 热心市民の知识库" />
+<meta name="twitter:description" content="这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class="open "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class="open "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class="current"><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class=" "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class=" "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class=""><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class=" "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class=""><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">2-路由信息协议(RIP)</h1>
+        <p class="post-meta">
+            <time>April 23 2020</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/RIP/">#RIP</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><blockquote><p>这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了</p>
+</blockquote>
+<h2>RIP基本知识</h2>
+<h3>基本原理</h3>
+<ul>
+<li><p>基于距离矢量算法</p>
+<ul>
+<li>路由器泛洪自己整个路由表给邻居路由器</li>
+</ul>
+</li>
+</ul>
+<h3>通用属性</h3>
+<ul>
+<li>邻居(直连路由器)</li>
+<li>周期更新(30s)</li>
+<li><p>Metric(度量值)</p>
+<ul>
+<li>RIP协议以跳数作为度量值，每经过一台设备即被视为1跳，RIP协议的最大跳数为15跳，若为16跳即表示该路由不可达</li>
+</ul>
+</li>
+<li><p>广播更新</p>
+<ul>
+<li><p>路由器向255.255.255.255(广播地址)发送报文，网络中所有设备都会监听该地址，RIPv1默认使用广播更新</p>
+<ul>
+<li>所有设备收到报文都需要处理，对设备负担较大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组播更新</p>
+<ul>
+<li><p>路由器向224.0.0.9发送报文，只有RIP路由器监听该组播地址，RIPv2默认使用组播更新</p>
+<ul>
+<li>大大节省设备性能开销</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>泛洪路由表</p>
+<ul>
+<li>路由器将从邻居学来的路由放进自己的路由表，然后通告本地路由表中全部路由信息给邻居路由器，直至整个网络全部学习到</li>
+</ul>
+</li>
+</ul>
+<h3>RIP的定时器</h3>
+<ul>
+<li><p>更新定时器（Upadte Timer）</p>
+<ul>
+<li>时间为30s</li>
+<li>若定时器超时，则会发送一次Reponse报文</li>
+<li>每当学到一条新路由并添加到路由表时，会启动一个老化定时器</li>
+</ul>
+</li>
+<li><p>老化定时器（Age Timer）</p>
+<ul>
+<li>时间为180s</li>
+<li>RIP设备在老化时间内若没有收到邻居发送来的Reponse报文，则认为该路由不可达</li>
+<li>超时后，该路由度量值被置为16(表示不可达)，将从路由表中删除，但仍在RIP数据库存在，此时启动垃圾收集定时器</li>
+</ul>
+</li>
+<li><p>垃圾收集定时器（Garbage-collect Timer）</p>
+<ul>
+<li>时间为120s</li>
+<li>如果在垃圾收集时间内仍没有从同一邻居收到该不可达邻居更新，则该路由从RIP数据库中彻底删除</li>
+</ul>
+</li>
+</ul>
+<h2>RIP的报文</h2>
+<h3>使用UDP作为传输协议，端口520</h3>
+<h3>报文类型</h3>
+<ul>
+<li><p>请求报文（Request）</p>
+<ul>
+<li><p>发送场景</p>
+<ul>
+<li>接口重置后</li>
+<li>接口初次加入RIP</li>
+<li>进程初次启动后</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>响应报文（Response）</p>
+<ul>
+<li><p>发送场景</p>
+<ul>
+<li>收到Request报文后立即回应</li>
+<li>每隔30s发送一次</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>报文格式</h3>
+<h4>RIPv1</h4>
+<p><figure><a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/6bdf834b20ed8107fd2b9df4c0a99e6f.png"><img data-width="598" data-height="410" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/6bdf834b20ed8107fd2b9df4c0a99e6f.png" alt="image-20200315182148119" /></a><figcaption>image-20200315182148119</figcaption></figure></p>
+<table>
+<thead><tr>
+<th>字段名</th>
+<th>长度</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+<td>8比特</td>
+<td>标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Response报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>8比特</td>
+<td>RIP的版本号：1：RIP-12：RIP-2</td>
+</tr>
+<tr>
+<td>Must be zero</td>
+<td>16/32比特</td>
+<td>必须为零字段。</td>
+</tr>
+<tr>
+<td>Address family identifier</td>
+<td>16比特</td>
+<td>地址族标识，其值为2时表示IP协议。对于Request报文，此字段值为0。</td>
+</tr>
+<tr>
+<td>IP Address</td>
+<td>32比特</td>
+<td>该路由的目的IP地址，可以是自然网段的地址，也可以是子网地址或主机地址。</td>
+</tr>
+<tr>
+<td>Metric</td>
+<td>32比特</td>
+<td>路由的开销值。对于Request报文，此字段值为16。</td>
+</tr>
+</tbody>
+</table>
+<h4>RIPv2</h4>
+<p><figure><a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/d3d3ffa8defbf2d860e474c6d735ab7e.png"><img data-width="595" data-height="401" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/d3d3ffa8defbf2d860e474c6d735ab7e.png" alt="image-20200315182254895" /></a><figcaption>image-20200315182254895</figcaption></figure></p>
+<table>
+<thead><tr>
+<th>字段名</th>
+<th>长度</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+<td>8比特</td>
+<td>标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Reponse报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>8比特</td>
+<td>RIP的版本号：1：RIP-12：RIP-2</td>
+</tr>
+<tr>
+<td>Must be zero</td>
+<td>16比特</td>
+<td>必须为零字段。</td>
+</tr>
+<tr>
+<td>Address Family Identifier</td>
+<td>16比特</td>
+<td>地址族标识，其值为2时表示IP协议。对于Request报文，此字段值为0。</td>
+</tr>
+<tr>
+<td>Route Tag</td>
+<td>16比特</td>
+<td>外部路由标记。</td>
+</tr>
+<tr>
+<td>IP Address</td>
+<td>32比特</td>
+<td>该路由的目的IP地址，可以是自然网段的地址，也可以是子网地址或主机地址。</td>
+</tr>
+<tr>
+<td>Subnet Mask</td>
+<td>32比特</td>
+<td>目的地址的掩码。</td>
+</tr>
+<tr>
+<td>Next Hop</td>
+<td>32比特</td>
+<td>提供一个更好的下一跳地址。如果为0.0.0.0，则表示发布此路由的路由器地址就是最优下一跳地址。</td>
+</tr>
+<tr>
+<td>Metric</td>
+<td>32比特</td>
+<td>路由的开销值。对于Request报文，此字段为16。</td>
+</tr>
+</tbody>
+</table>
+<h4>RIP-2的验证报文格式</h4>
+<p><figure><a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/afbd045e9b1c86463651b4fe27cbee6d.png"><img data-width="591" data-height="408" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/afbd045e9b1c86463651b4fe27cbee6d.png" alt="image-20200315182944369" /></a><figcaption>image-20200315182944369</figcaption></figure></p>
+<table>
+<thead><tr>
+<th>字段名</th>
+<th>长度</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command</td>
+<td>8比特</td>
+<td>标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Reponse报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>8比特</td>
+<td>RIP的版本号：1：RIP-12：RIP-2</td>
+</tr>
+<tr>
+<td>Unused</td>
+<td>16比特</td>
+<td>保留未使用。</td>
+</tr>
+<tr>
+<td>0xFFFF</td>
+<td>16比特</td>
+<td>验证项标识，表示整个路由报文需要验证。</td>
+</tr>
+<tr>
+<td>Authentication Type</td>
+<td>16比特</td>
+<td>验证类型：2：明文验证；3：MD5验证。</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>16字节</td>
+<td>验证口令，当使用明文验证时该字段才会包含密码信息。若使用的是MD5认证，后面的路由信息都会被hash值替代，无法看到</td>
+</tr>
+</tbody>
+</table>
+<h2>RIP防环</h2>
+<h3>水平分割（Split Horizon）</h3>
+<ul>
+<li>RIP从某个接口学到的路由，不会从该接口再发回给邻居路由器</li>
+</ul>
+<h3>毒性逆转（Poison Reverse）</h3>
+<ul>
+<li>RIP从某个接口学到路由后，从原接口发回邻居路由器，并将该路由的开销设置为16（即指明该路由不可达）</li>
+<li>利用这种方式，可以清除对方路由表中的无用路由。</li>
+</ul>
+<h3>最大计数器</h3>
+<ul>
+<li>RIP协议的最大跳数设置为15跳，即使环路了，也不会无休止的传递</li>
+</ul>
+<h3>触发更新</h3>
+<ul>
+<li>路由信息变化时，立即向邻居路由器发送更新报文</li>
+<li>路由下一跳不可达时，立即把此路由跳数改为16跳，并通告给邻居</li>
+</ul>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">
+                    <time>April 23 2020</time>
+                    <span>3.1-开放式最短路径优先协议(OSPF)</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">
+                    <time>April 12 2020</time>
+                    <span>解决SecuceCRT连接eNSP时tab键乱码问题</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/2-路由信息协议-RIP/" 
+            data-flag-title="2-路由信息协议(RIP)">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

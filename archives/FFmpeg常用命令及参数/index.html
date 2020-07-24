@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>FFmpeg常用命令及参数 - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="基本命令形式" />
+<meta property="og:title" content="FFmpeg常用命令及参数 - 热心市民の知识库" />
+<meta property="og:description" content="基本命令形式" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/FFmpeg常用命令及参数/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2020-06-21T17:01:00+08.00" />
+<meta name="twitter:title" content="FFmpeg常用命令及参数 - 热心市民の知识库" />
+<meta name="twitter:description" content="基本命令形式" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class="open "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class="current"><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class=" "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class=""><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class=" "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class=" "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class=""><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class=" "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class=""><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">FFmpeg常用命令及参数</h1>
+        <p class="post-meta">
+            <time>June 21 2020</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/FFmpeg/">#FFmpeg</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><h3>基本命令形式</h3>
+<div class="highlight"><pre><span></span>ffmpeg -i input.mp4 output.avi
+</pre></div>
+<h3>常用命令</h3>
+<div class="highlight"><pre><span></span><span class="c1"># 去掉视频中的音频</span>
+ffmpeg -i input.mp4 -vcodec copy -an output.mp4
+<span class="c1"># -an: 去掉音频；-vcodec:视频选项，一般后面加copy表示拷贝</span>
+
+<span class="c1"># 提取视频中的音频</span>
+ffmpeg -i input.mp4 -acodec copy -vn output.mp3
+<span class="c1"># -vn: 去掉视频；-acodec: 音频选项， 一般后面加copy表示拷贝</span>
+
+<span class="c1"># 音视频合成</span>
+ffmpeg -y –i input.mp4 –i input.mp3 –vcodec copy –acodec copy output.mp4
+<span class="c1"># -y 覆盖输出文件</span>
+
+<span class="c1">#剪切视频</span>
+ffmpeg -ss <span class="m">0</span>:1:30 -t <span class="m">0</span>:0:20 -i input.mp4 -vcodec copy -acodec copy output.mp4
+<span class="c1"># -ss 开始时间; -t 持续时间</span>
+
+<span class="c1"># 视频截图</span>
+ffmpeg –i test.mp4 –f image2 -t <span class="m">0</span>.001 -s 320x240 image-%3d.jpg
+<span class="c1"># -s 设置分辨率; -f 强迫采用格式fmt;</span>
+
+<span class="c1"># 视频分解为图片</span>
+ffmpeg –i test.mp4 –r <span class="m">1</span> –f image2 image-%3d.jpg
+<span class="c1"># -r 指定截屏频率</span>
+
+<span class="c1"># 将图片合成视频</span>
+ffmpeg -f image2 -i image%d.jpg output.mp4
+
+<span class="c1">#视频拼接</span>
+ffmpeg -f concat -i filelist.txt -c copy output.mp4
+
+<span class="c1"># 将视频转为gif</span>
+ffmpeg -i input.mp4 -ss <span class="m">0</span>:0:30 -t <span class="m">10</span> -s 320x240 -pix_fmt rgb24 output.gif
+<span class="c1"># -pix_fmt 指定编码</span>
+
+<span class="c1"># 将视频前30帧转为gif</span>
+ffmpeg -i input.mp4 -vframes <span class="m">30</span> -f gif output.gif
+
+<span class="c1"># 旋转视频</span>
+ffmpeg -i input.mp4 -vf <span class="nv">rotate</span><span class="o">=</span>PI/2 output.mp4
+
+<span class="c1"># 缩放视频</span>
+ffmpeg -i input.mp4 -vf <span class="nv">scale</span><span class="o">=</span>iw/2:-1 output.mp4
+<span class="c1"># iw 是输入的宽度， iw/2就是一半;-1 为保持宽高比</span>
+
+<span class="c1">#视频变速</span>
+ffmpeg -i input.mp4 -filter:v <span class="nv">setpts</span><span class="o">=</span><span class="m">0</span>.5*PTS output.mp4
+
+<span class="c1">#音频变速</span>
+ffmpeg -i input.mp3 -filter:a <span class="nv">atempo</span><span class="o">=</span><span class="m">2</span>.0 output.mp3
+
+<span class="c1">#音视频同时变速，但是音视频为互倒关系</span>
+ffmpeg -i input.mp4 -filter_complex <span class="s2">&quot;[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]&quot;</span> -map <span class="s2">&quot;[v]&quot;</span> -map <span class="s2">&quot;[a]&quot;</span> output.mp4
+
+
+<span class="c1"># 视频添加水印</span>
+ffmpeg -i input.mp4 -i logo.jpg -filter_complex <span class="o">[</span><span class="m">0</span>:v<span class="o">][</span><span class="m">1</span>:v<span class="o">]</span><span class="nv">overlay</span><span class="o">=</span>main_w-overlay_w-10:main_h-overlay_h-10<span class="o">[</span>out<span class="o">]</span> -map <span class="o">[</span>out<span class="o">]</span> -map <span class="m">0</span>:a -codec:a copy output.mp4
+<span class="c1"># main_w-overlay_w-10 视频的宽度-水印的宽度-水印边距；</span>
+
+<span class="c1"># 截取视频局部</span>
+ffmpeg -i in.mp4 -filter:v <span class="s2">&quot;crop=out_w:out_h:x:y&quot;</span> out.mp4
+
+<span class="c1"># 截取部分视频，从[80,60]的位置开始，截取宽200，高100的视频</span>
+ffmpeg -i in.mp4 -filter:v <span class="s2">&quot;crop=80:60:200:100&quot;</span> -c:a copy out.mp4
+
+<span class="c1"># 截取右下角的四分之一</span>
+ffmpeg -i in.mp4 -filter:v <span class="s2">&quot;crop=in_w/2:in_h/2:in_w/2:in_h/2&quot;</span> -c:a copy out.mp4
+
+<span class="c1"># 截去底部40像素高度</span>
+ffmpeg -i in.mp4 -filter:v <span class="s2">&quot;crop=in_w:in_h-40&quot;</span> -c:a copy out.mp4
+</pre></div>
+<h3>参数说明</h3>
+<div class="highlight"><pre><span></span>-vcodec xvid 使用xvid压缩
+-s 320x240 指定分辨率
+-r fps 设置帧频 缺省25
+-b &lt;比特率&gt; 指定压缩比特
+
+-acodec aac 设定声音编码
+-ac &lt;数值&gt; 设定声道数，1就是单声道，2就是立体声
+-ar &lt;采样率&gt; 设定声音采样率，PSP只认24000
+-ab &lt;比特率&gt; 设定声音比特率
+-vol &lt;百分比&gt; 设定音量
+
+-y（覆盖输出文件
+
+-t duration 设置纪录时间 hh:mm:ss<span class="o">[</span>.xxx<span class="o">]</span>格式的记录时间也支持
+-ss position 搜索到指定的时间 <span class="o">[</span>-<span class="o">]</span>hh:mm:ss<span class="o">[</span>.xxx<span class="o">]</span>的格式也支持
+-title string 设置标题
+-author string 设置作者
+-copyright string 设置版权
+-hq 激活高质量设置
+
+-aspect aspect 设置横纵比 <span class="m">4</span>:3 <span class="m">16</span>:9 或 <span class="m">1</span>.3333 <span class="m">1</span>.7777
+-croptop size 设置顶部切除带大小 像素单位
+-cropbottom size -cropleft size -cropright size
+-padtop size 设置顶部补齐的大小 像素单位
+-padbottom size -padleft size -padright size -padcolor color 设置补齐条颜色<span class="o">(</span>hex,6个16进制的数，红:绿:兰排列，比如 000000代表黑色<span class="o">)</span>
+-bt tolerance 设置视频码率容忍度kbit/s
+-maxrate bitrate设置最大视频码率容忍度
+-minrate bitreate 设置最小视频码率容忍度
+-bufsize size 设置码率控制缓冲区大小
+-vcodec codec 强制使用codec编解码方式。 如果用copy表示原始编解码数据必须被拷贝。
+-sameq 使用同样视频质量作为源（VBR）
+-pass n 选择处理遍数（1或者2）。两遍编码非常有用。第一遍生成统计信息，第二遍生成精确的请求的码率
+-passlogfile file 选择两遍的纪录文件名为file
+
+-map file:stream 设置输入流映射
+-debug 打印特定调试信息
+</pre></div>
+<h3>其他工具</h3>
+<div class="highlight"><pre><span></span><span class="c1">#查看视频信息</span>
+ ffprobe example.mp4
+</pre></div>
+<p>参考：</p>
+<p><a href="https://www.jianshu.com/p/11b6c4eb9e49">https://www.jianshu.com/p/11b6c4eb9e49</a></p>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/使用JavaScript实现页面跳转/">
+                    <time>June 05 2020</time>
+                    <span>使用JavaScript实现页面跳转</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/FFmpeg常用命令及参数/" 
+            data-flag-title="FFmpeg常用命令及参数">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

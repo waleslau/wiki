@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Wiki" />
+    <meta name="generator" content="Maverick 1.1" />
+    <meta name="template" content="Kepler" />
+    <link rel="alternate" type="application/rss+xml" title="热心市民の知识库 &raquo; RSS 2.0" href="/wiki/feed/index.xml" />
+    <link rel="alternate" type="application/atom+xml" title="热心市民の知识库 &raquo; ATOM 1.0" href="/wiki/feed/atom/index.xml" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-cf5c67fd1e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-182e5a8868.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+
+
+    <script>
+        var ExSearchConfig = {
+            root: "",
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/203cb6db6e6b1e456791a571532b6751.json"
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            if(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)){
+                document.body.classList.add('safari')
+            }else{
+                document.body.classList.remove('safari')
+            }
+        });
+    </script>
+    
+<title>MySQL管理 - 热心市民の知识库</title>
+<meta name="author" content="waleslau" />
+<meta name="description" content="用户相关" />
+<meta property="og:title" content="MySQL管理 - 热心市民の知识库" />
+<meta property="og:description" content="用户相关" />
+<meta property="og:site_name" content="热心市民の知识库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/wiki/archives/About_MySQL_management/" />
+<meta property="og:image" content="" />
+<meta property="article:published_time" content="2020-01-22T23:56:00+08.00" />
+<meta name="twitter:title" content="MySQL管理 - 热心市民の知识库" />
+<meta name="twitter:description" content="用户相关" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="" />
+
+
+    
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="shortcut icon" href="https://static.oopsky.top/img/favicon.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144181320-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-144181320-4');
+</script>
+<script src="https://cdn.jsdelivr.net/gh/waleslau/live2d-widget@latest/autoload.js"></script>
+
+    </head>
+    
+    <body class="content">
+        <header>
+            <div class="container">
+                <section>
+                    <a href="/wiki/"><img src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg">热心市民の知识库</a>
+                </section>
+                <section>
+                    <nav>
+                        <ul>
+                            
+                                <li><a href="https://home.oopsky.top/" target="_blank">HOME</a></li>
+                            
+                                <li><a href="https://blog.oopsky.top/" target="_blank">部落格</a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+    
+                <section>
+                    <a hidden class="toggle-toc" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('toc-open')"><i class="fa fa-align-right"></i></a>
+                    <a hidden class="toggle-navbar" target="_self" href="javascript:void(0)" onclick="$(body).toggleClass('navbar-open')"><i class="fa fa-indent"></i></a>
+                    <button class="search-form-input"><i class="fa fa-search"></i></button>
+                </section>
+            </div>
+        </header>
+
+        <main>
+            <div id="pjax-container" class="container">
+                <aside id="navbar" class="no-scrollbar">
+                    
+                    <section class="sidebar-nav">
+                        
+                            <div class="None" ><span><a href="/wiki/">主页</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/archives/">归档</a></span></div>
+                        
+                            <div class="None" ><span><a href="/wiki/about/">关于</a></span></div>
+                        
+                    </section>
+                    
+                    <section>
+                        
+    <div class=" "><span><a href="/wiki/category/日常技巧/">日常技巧</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/FFmpeg常用命令及参数/">FFmpeg常用命令及参数</a></li><li class=""><a href="/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/">解决SecuceCRT连接eNSP时tab键乱码问题</a></li><li class=""><a href="/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/">配置 VS Code 一键为MarkDown文档添加 Front-matter</a></li></ul></div><div class=" "><span><a href="/wiki/category/Web/">Web</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/使用JavaScript实现页面跳转/">使用JavaScript实现页面跳转</a></li><li class=""><a href="/wiki/archives/Front-end_basics_1/">前端基础之 HTML/CSS 初接触</a></li></ul></div><div class=" "><span><a href="/wiki/category/计算机网络/">计算机网络</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/路由交换学习之路/">路由交换学习之路</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/3-1-开放式最短路径优先协议-OSPF/">3.1-开放式最短路径优先协议(OSPF)</a></li><li class=""><a href="/wiki/archives/2-路由信息协议-RIP/">2-路由信息协议(RIP)</a></li><li class=""><a href="/wiki/archives/1_IP路由基础/">1-IP路由基础</a></li></ul></div><li class=""><a href="/wiki/archives/最短路径优先算法/">最短路径优先算法</a></li><li class=""><a href="/wiki/archives/STP配置边缘端口的两种方式/">STP配置边缘端口的两种方式</a></li></ul></div><div class=" "><span><a href="/wiki/category/操作系统/">操作系统</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/Windows/">Windows</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/MSYS2-environment-configuration/">MSYS2环境配置</a></li><li class=""><a href="/wiki/archives/Windows刷新DNS/">Windows刷新DNS</a></li><li class=""><a href="/wiki/archives/添加_Windows_Terminal_到右键菜单/">添加 Windows Terminal 到右键菜单</a></li></ul></div><div class=" "><span><a href="/wiki/category/Linux/">Linux</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Debian中为用户添加sudo权限/">Debian中为用户添加sudo权限</a></li><li class=""><a href="/wiki/archives/在Linux完整迁移网站_数据库/">在Linux完整迁移网站&数据库</a></li><li class=""><a href="/wiki/archives/Install_the_latest_Python_on_CentOS7/">在 CentOS7 安装最新的Python程序</a></li><li class=""><a href="/wiki/archives/Arch_Linux_Installation_guide/">Arch Linux 安装指南</a></li></ul></div></ul></div><div class="open "><span><a href="/wiki/category/数据库/">数据库</a><button class="toggle_sidebar fa"></button></span><ul><div class=" "><span><a href="/wiki/category/MongoDB/">MongoDB</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/Quickly_set_up_MongoDB_environment_with_Docker/">使用Docker快速搭建MongoDB环境</a></li></ul></div><div class="open "><span><a href="/wiki/category/MySQL/">MySQL</a><button class="toggle_sidebar fa"></button></span><ul><li class="current"><a href="/wiki/archives/About_MySQL_management/">MySQL管理</a></li><li class=""><a href="/wiki/archives/MySQL_CURD/">SQL 学习笔记</a></li></ul></div></ul></div><div class=" "><span><a href="/wiki/category/Default/">Default</a><button class="toggle_sidebar fa"></button></span><ul><li class=""><a href="/wiki/archives/typography/">Typography</a></li></ul></div>
+
+                    </section>
+                    <section hidden class="sidebar-external-link">
+                        
+                            <div class="external"><span><a href="https://home.oopsky.top/">HOME</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                            <div class="external"><span><a href="https://blog.oopsky.top/">部落格</a><button class="go-external"><i class="fa fa-external-link"></i></button></span></div>
+                        
+                    </section>
+                    <section class="maverick">
+                        <div><span style="border: 1px solid #d4dadf;"><a href="https://github.com/AlanDecode/Maverick" target="_blank">Maverick & Kepler</a></span></div>
+                    </section>
+                </aside>
+                <div id="content-wrapper">
+                    <div id="content">
+    <section>
+        <h1 class="post-title">MySQL管理</h1>
+        <p class="post-meta">
+            <time>January 22 2020</time>
+            <span class="tags">
+                
+                <span>
+                    <a href="/wiki/tag/MySQL/">#MySQL</a>
+                </span>
+                
+            </span>
+        </p>
+        <article class="yue"><h2>用户相关</h2>
+<ul>
+<li><p>创建用户</p>
+<div class="highlight"><pre><span></span><span class="c1">-- 创建本地用户</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;user_password&#39;</span><span class="p">;</span>
+<span class="c1">-- 创建用户并授予ip为6.6.6.6的主机访问权限</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;6.6.6.6&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;user_password&#39;</span><span class="p">;</span>
+<span class="c1">-- 创建可以从任何主机连接的用户，使用&#39;%&#39;通配符作为主机部分</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;user_password&#39;</span><span class="p">;</span>
+<span class="c1">-- 创建本地用户之前检查是否已存在同名用户</span>
+<span class="k">CREATE</span> <span class="k">USER</span> <span class="k">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="s1">&#39;newuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;user_password&#39;</span><span class="p">;</span>
+</pre></div>
+</li>
+<li><p>赋予用户权限</p>
+<ul>
+<li><p>常用权限：</p>
+<ul>
+<li><code>ALL PRIVILEGES</code> –授予用户帐户所有特权。</li>
+</ul>
+</li>
+<li><p><code>CREATE</code>–允许用户帐户<a href="https://linuxize.com/post/how-to-create-a-mysql-database/">创建数据库</a>和表。</p>
+<ul>
+<li><code>DROP</code>-允许用户帐户<a href="https://linuxize.com/post/how-to-delete-a-mysql-database/">删除数据库</a>和表。</li>
+</ul>
+</li>
+<li><p><code>DELETE</code> -允许用户帐户从特定表中删除行。</p>
+<ul>
+<li><code>INSERT</code> -允许用户帐户在特定表中插入行。</li>
+</ul>
+</li>
+<li><p><code>SELECT</code> –允许用户帐户读取数据库。</p>
+<ul>
+<li><code>UPDATE</code> -允许用户帐户更新表行。</li>
+</ul>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html">点击查看更多</a></p>
+</li>
+<li><p>要向用户帐户授予特定特权，可以使用以下语法</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1">-- 授予特定数据库上的所有特权给某用户帐户</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">database_name</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;database_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 授予所有数据库的所有特权给某用户帐户</span>
+<span class="c1">-- 可以省略 PRIVILEGES</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span>  <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;database_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+
+<span class="c1">-- 授予特定数据库上特定表的所有特权给某用户帐户</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">database_name</span><span class="p">.</span><span class="k">table_name</span> <span class="k">TO</span> <span class="s1">&#39;database_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+
+<span class="c1">-- -- 授予特定数据库上的多个特权给某用户帐户</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span> <span class="k">INSERT</span><span class="p">,</span> <span class="k">DELETE</span> <span class="k">ON</span> <span class="n">database_name</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="n">database_user</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</pre></div>
+<ul>
+<li>显示某用户账户拥有的特权</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">GRANTS</span> <span class="k">FOR</span> <span class="s1">&#39;database_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</pre></div>
+<ul>
+<li>撤销某用户账户的特权</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1">-- 撤消特定数据库上用户帐户的所有特权</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">REVOKE</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="n">database_name</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="s1">&#39;database_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+</pre></div>
+</li>
+<li><p>删除现有的MySQL用户帐户</p>
+<div class="highlight"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DROP</span> <span class="k">USER</span> <span class="s1">&#39;user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span>
+</pre></div>
+</li>
+</ul>
+<h2>数据库相关</h2>
+<p>-</p>
+<blockquote><p>查询数据/状态时如果嫌显示的格式不好看，可以用<code>\G</code>代替行尾分号</p>
+<ul>
+<li><code>\g</code>的作用和<code>;</code>是等效的</li>
+<li><code>\G</code>的作用是以垂直格式返回结果集(使每个字段打印到单独的行)，如果返回的列数较大，则有时更易于阅读</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>帮助命令</p>
+
+<pre><code>  MySQL [(none)]&gt; help
+  List of all MySQL commands:
+  Note that all text commands must be first on line and end with ';'
+  ?         (\?) Synonym for `help'.
+  clear     (\c) Clear the current input statement.
+  connect   (\r) Reconnect to the server. Optional arguments are db and host.
+  delimiter (\d) Set statement delimiter.
+  edit      (\e) Edit command with $EDITOR.
+  ego       (\G) Send command to mysql server, display result vertically.
+  exit      (\q) Exit mysql. Same as quit.
+  go        (\g) Send command to mysql server.
+  help      (\h) Display this help.
+  nopager   (\n) Disable pager, print to stdout.
+  notee     (\t) Don't write into outfile.
+  pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+  print     (\p) Print current command.
+  prompt    (\R) Change your mysql prompt.
+  quit      (\q) Quit mysql.
+  rehash    (\#) Rebuild completion hash.
+  source    (\.) Execute an SQL script file. Takes a file name as an argument.
+  status    (\s) Get status information from the server.
+  system    (\!) Execute a system shell command.
+  tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+  use       (\u) Use another database. Takes database name as argument.
+  charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+  warnings  (\W) Show warnings after every statement.
+  nowarning (\w) Don't show warnings after every statement.
+  resetconnection(\x) Clean session context.</code></pre>
+</li>
+<li><p>创建/删除某数据库的方法</p>
+<blockquote><p>把下面所有命令的<code>DROP</code>改为<code>CREATE</code>即为创建之法</p>
+</blockquote>
+<ul>
+<li>在数据库视图中</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1">-- 直接删除</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DROP</span> <span class="k">DATABASE</span> <span class="n">database_name</span><span class="p">;</span>
+<span class="c1">-- 若不确定该数据库是否存在</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DROP</span> <span class="k">DATABASE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">database_name</span><span class="p">;</span>
+</pre></div>
+<ul>
+<li>使用<code>mysqladmin</code></li>
+</ul>
+<div class="highlight"><pre><span></span>$ mysqladmin -u root -p drop database_name
+</pre></div>
+</li>
+</ul>
+<ul>
+<li><p>连接查询</p>
+<blockquote><p>若仅有一个<code>join</code>,未指定连接类型，则<strong>默认内链接</strong>,</p>
+</blockquote>
+<p><figure><a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/7982f9c8d508cf2f6614c7284f92bfe1.jpg"><img data-width="1222" data-height="812" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/7982f9c8d508cf2f6614c7284f92bfe1.jpg" alt="sql_joins.jpg" /></a><figcaption>sql_joins.jpg</figcaption></figure></p>
+</li>
+<li><p>存储过程 (Stored Procedures)</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+</li>
+<li><p>视图 (Views)</p>
+<div class="highlight"><pre><span></span><span class="c1">-- 创建视图</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">userInfo</span> <span class="c1">-- 视图名称</span>
+<span class="k">AS</span>  <span class="c1">-- 下面跟正常查询语句即可</span>
+<span class="k">SELECT</span>
+  <span class="n">u</span><span class="p">.</span><span class="n">enabled</span><span class="p">,</span><span class="n">lu</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span><span class="n">lu</span><span class="p">.</span><span class="n">domain_id</span><span class="p">,</span><span class="n">lu</span><span class="p">.</span><span class="n">name</span> 
+<span class="k">FROM</span> <span class="k">user</span> <span class="n">u</span> 
+<span class="k">JOIN</span>
+  <span class="n">local_user</span> <span class="n">lu</span> <span class="k">ON</span> <span class="n">lu</span><span class="p">.</span><span class="n">user_id</span><span class="o">=</span><span class="n">u</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+
+<span class="c1">-- 然后此视图即可视为一张表被查询</span>
+</pre></div>
+</li>
+<li><p>触发器 (Triggers)</p>
+<div class="highlight"><pre><span></span><span class="c1">-- 创建触发器结构</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="k">trigger_name</span> <span class="c1">-- 触发器名必须在每个表中唯一</span>
+<span class="err">{</span><span class="k">BEFORE</span> <span class="o">|</span> <span class="k">AFTER</span><span class="err">}</span> <span class="err">{</span><span class="k">INSERT</span> <span class="o">|</span> <span class="k">UPDATE</span><span class="o">|</span> <span class="k">DELETE</span> <span class="err">}</span> <span class="c1">-- 指定触发器执行时间、以及激活触发器的动作</span>
+<span class="k">ON</span> <span class="k">table_name</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span> <span class="c1">-- 指定触发器所属的表的名称</span>
+<span class="n">trigger_body</span><span class="p">;</span> <span class="c1">-- 指定触发触发器时要执行的语句</span>
+
+<span class="c1">-- 只有表才支持触发器，视图不支持（临时表也不 支持）</span>
+</pre></div>
+</li>
+<li><p>事件 (Events)</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+</li>
+<li><p>索引 (Indexes)</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+</li>
+</ul>
+</article>
+    </section>
+
+    
+    <section id="content-pager">
+        
+            <div class="next">
+                <a class="card" href="/wiki/archives/Front-end_basics_1/">
+                    <time>January 28 2020</time>
+                    <span>前端基础之 HTML/CSS 初接触</span>
+                </a>
+            </div>
+        
+        
+            <div class="prev">
+                <a class="card" href="/wiki/archives/MySQL_CURD/">
+                    <time>November 06 2019</time>
+                    <span>SQL 学习笔记</span>
+                </a>
+            </div>
+        
+    </section>
+    
+
+    
+        <section id="comments">
+            <div id="vcomments"></div>
+        </section>
+        <script>
+            window.ValineOpt = {"recordIP": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "verify": true, "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "notify": true, "visitor": true, "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz", "enable": true, "el": "#vcomments"};
+            window.ValineOpt.path = window.location.pathname;
+        </script>
+    
+
+    <script>
+        document.body.classList.add('content');
+        document.body.classList.remove('archive');
+    </script>
+</div>
+                    <footer>
+                        <span>Copyright © 2020 waleslau</span>
+                        
+    <span class="leancloud_visitors"
+            id="/archives/About_MySQL_management/" 
+            data-flag-title="MySQL管理">
+            <i class="fa fa-eye"></i> <i style="font-style: normal" class="leancloud-visitors-count"></i> Views
+        </span>
+
+                        <span class="addon">
+<span id="jinrishici-sentence">正在加载今日诗词....</span>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+<!--
+<a no-style href="http://www.beian.gov.cn" target="_blank">豫ICP备19025987-2号</a> | 
+<a no-style href="https://www.upyun.com" target="_blank">又拍云</a>
+-->
+</span>
+                    </footer>
+                </div>
+                
+<aside id="toc-container" class="no-scrollbar">
+    <span><i class="fa fa-align-right"></i> CONTENTS</span>
+    <div id="toc"></div>
+</aside>
+
+            </div>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tocbot@4.10.0/dist/tocbot.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/kepler-ef161b04d5.js"></script>
+        <script>
+            function ExSearchCall(item){
+                if (item && item.length) {
+                    $('.ins-close').click(); // 关闭搜索框
+                    $('input.ins-search-input').val(''); // 清空
+                    let url = item.attr('data-url'); // 获取目标页面 URL
+                    $.pjax({url: url, 
+                        container: '#pjax-container',
+                        fragment: '#pjax-container',
+                        timeout: 8000, }); // 发起一次 PJAX 请求
+                }
+            }
+        </script>
+
+        <!--Valine-->
+        
+            <script>
+                var initValine = function () {
+                    if (typeof window.ValineOpt === 'object' && $(window.ValineOpt.el).length) {
+                        new Valine(window.ValineOpt);
+                    }
+                }
+            </script>
+            <script async src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js' onload="initValine()"></script>
+        
+
+        <!--fancybox-->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+        <!--ExSearch-->
+        <script src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/ExSearch/ExSearch-493cb9cd89.js"></script>
+        
+        <!--katex-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.css">
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/katex.min.js"></script>
+        <script>
+        mathOpts = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/assets/auto-render.min.js" onload="renderMathInElement(document.body, mathOpts);"></script>
+
+        
+    </body>
+</html>

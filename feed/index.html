@@ -1,0 +1,1063 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link><description>永远保持热忱.</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg</url><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link></image><language>zh-CN</language><lastBuildDate>Sat, 25 Jul 2020 00:32:49 +0806</lastBuildDate><pubDate>Sat, 25 Jul 2020 00:32:49 +0806</pubDate><item><title>STP配置边缘端口的两种方式</title><link>https://wiki.oopsky.top/wiki/archives/STP配置边缘端口的两种方式/</link><description>&lt;h2&gt;方式1&lt;/h2&gt;
+&lt;p&gt;先分别在每台交换机配置(所有端口为)边缘端口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[系统视图] stp edged-port default&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后手动把交换机互联端口取消边缘端口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[接口视图] stp edged-port disable&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;&lt;p&gt;理论上讲，并不需要手动取消边缘端口，端口配置成边缘端口后，如果收到BPDU报文，交换设备会自动将边缘端口设置为非边缘端口，并重新进行生成树计算，
+但它只会识别收到的报文，根桥的指定端口不会收到BPDU报文，所以根桥/备份根桥的这些端口会不会自动被设为非边缘端口，所以我们需要使用&lt;code&gt;stp edged-port disable&lt;/code&gt;手动把根桥&amp;amp;备份根桥的互联端口设为非边缘端口&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;方式二&lt;/h2&gt;
+&lt;p&gt;手动配置每个不参与STP计算的端口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[接口视图] stp edged-port enable&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;&lt;p&gt;此种方式配置的边缘端口如想取消，可以用&lt;code&gt;undo stp edged-port&lt;/code&gt;也可以用&lt;code&gt;stp edged-port disable&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/STP配置边缘端口的两种方式/</guid><pubDate>Thu, 05 Mar 2020 20:57:00 +0806</pubDate></item><item><title>1-IP路由基础</title><link>https://wiki.oopsky.top/wiki/archives/1_IP路由基础/</link><description>&lt;h2&gt;IPv4地址&lt;/h2&gt;
+&lt;h3&gt;地址分类&lt;/h3&gt;
+&lt;p&gt;长度：32位 4 字节&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A类地址：&lt;/p&gt;
+&lt;p&gt;第一字节的第一位为0，第一字节数值范围0-127，0和127不做为A类地址，故实际可用范围为1-126&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;0  保留，ip地址全为0表示本主机，只做源地址使用&lt;/p&gt;
+&lt;p&gt;127 保留给本地回环地址&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;B类地址：&lt;/p&gt;
+&lt;p&gt;第一字节的前两位为10，数值范围为128-191&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;C类地址：&lt;/p&gt;
+&lt;p&gt;第一字节的前三位为110，数值范围为192-233&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;主网段及子网划分&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;主网段采用自然掩码，即A类网络中使用8位掩码，B类网络中使用16位掩码，C类网络中使用32位掩码，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A类网络（1-126）默认子网掩码：255.0.0.0&lt;/li&gt;
+&lt;li&gt;B类网络（128-191）默认子网掩码：255.255.0.0&lt;/li&gt;
+&lt;li&gt;C类网络（192-223）默认子网掩码：255.255.255.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;子网划分&lt;/p&gt;
+&lt;p&gt;把主类网路地址继续划分成更多的子网络地址&lt;/p&gt;
+&lt;p&gt;子网掩码用来和IP地址进行“与”运算计算出网路地址,子网掩码由连续的1和连续的0组成，1对应IP中的网络位，0对应IP中的主机位&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;子网数目 = &lt;strong&gt;2^x^&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;x为掩码扩展位数（网络位 - 默认网络位）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;主机数 = &lt;strong&gt;2^y^ - 2&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;y为子网掩码中0的个数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;主机位全为0：子网的网络地址&lt;/p&gt;
+&lt;p&gt;主机位全为1：子网的广播地址&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;IP报文格式&lt;/h3&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;a href="https://support.huawei.com/hedex/hdx.do?docid=EDOC1000105967&amp;amp;lang=zh"&gt;IP报文格式大全&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://support.huawei.com/hedex/pages/EDOC1000105967AZI0130X/07/EDOC1000105967AZI0130X/07/resources/message/cd_feature_ip_message_format.html?ft=0&amp;amp;fe=10&amp;amp;hib=4.8&amp;amp;id=cd_feature_ip_message_format&amp;amp;text=IP%25E6%258A%25A5%25E6%2596%2587%25E6%25A0%25BC%25E5%25BC%258F&amp;amp;docid=EDOC1000105967"&gt;IP报文格式&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;路由表 (RIB) 与转发表 (FIB)&lt;/h2&gt;
+&lt;h3&gt;RIB 与 FIB&lt;/h3&gt;
+&lt;blockquote&gt;&lt;p&gt;路由表 (Routing Table, Routing Info Base)&lt;/p&gt;
+&lt;p&gt;转发表 (Forwarding Info Base)&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/2e634564c8980c5a6ebc4da5209d0764.jpg"&gt;&lt;img data-width="512" data-height="384" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/2e634564c8980c5a6ebc4da5209d0764.jpg" alt="img" /&gt;&lt;/a&gt;&lt;figcaption&gt;img&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;RIB 路由表&lt;/h3&gt;
+&lt;p&gt;RIB 存储所有的路由信息。它与具体的路由协议无关。所有的路由协议都在这里保存它们的路由。只要路由器上运行的路由协议学到了新路由，就都会放到路由表中。&lt;/p&gt;
+&lt;p&gt;当目标地址不可达时，对应的路由条目先被标记为 Unreachable，然后就从 RIB 中删除。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：RIB 不是用来进行 IP 包转发的，也不会被宣告到网络中。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;总之，RIB 中：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有所有通过动态路由协议学到了路由条目&lt;/li&gt;
+&lt;li&gt;有所有的直连网络&lt;/li&gt;
+&lt;li&gt;有另外配置的路由条目，如静态路由&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;理想状态下，我们应用 RIB 来转发 IP 包。但实际上，路由表中的一些条目，比如静态和 BGP 路由，它们的下一跳并不是一个直连的网络。&lt;/p&gt;
+&lt;p&gt;为了找到有效的下一跳，路由器必须进行递归查找，找到实际直连出口。&lt;/p&gt;
+&lt;h3&gt;FIB 转发表&lt;/h3&gt;
+&lt;p&gt;Forwarding Information Base 转发表 (FIB) 用于判断基于 IP 包的网络前缀，如何进行转发。&lt;/p&gt;
+&lt;p&gt;对于每一条可达的目标网络前缀，FIB 包含接口标识符和下一跳信息。 FIB 概念上类似于路由表。它维护一份 RIB 表中的转发信息镜像。&lt;/p&gt;
+&lt;p&gt;当 IP 路由从 RIB 拷贝到 FIB 时，它们的下一跳信息被明确地分析出来，包括下一跳的具体端口，以及如果到下一跳有多条路径时，每条路径的具体端口。&lt;/p&gt;
+&lt;p&gt;FIB 表中的条目数也是影响路由器性能的重要因素。通常来讲，FIB 条目越多，查找花费的时间越长。但由于基于 ASIC 芯片的转发技术日臻成熟，目前的查找转发几乎能达到线速。&lt;/p&gt;
+&lt;p&gt;了解路由器 FIB 最大条目数十分重要，但厂商一般不会在产品指标说明中提供 FIB 的大小限制。&lt;/p&gt;
+&lt;p&gt;路由器构建 FIB 需要一定的时间。它需要先接收路由信息包，建立路由表，选路，建立转发表并把转发表的适当的子集推送到一些线卡上，只减少路由器 CPU 到线卡的压力。&lt;/p&gt;
+&lt;p&gt;对于特别大的 FIB 整个过程会需要大约几分钟。如 RFC 3222 所提及。&lt;/p&gt;
+&lt;p&gt;这种 RIB 加 FIB 的结构，使用控制平面的 RIB 和转发平面的 FIB 分离。这种分离使路由器的性能更加有连续性。&lt;/p&gt;
+&lt;p&gt;因此，以后再衡量路由器或三层交换机时，一定要检查路由表和 FIB 表的大小。
+————————————————
+原文链接：&lt;a href="https://blog.csdn.net/ginkov/article/details/51803949"&gt;https://blog.csdn.net/ginkov/article/details/51803949&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;FIB表的Flag位含义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;G (GateWay 网关路由)：表示下一跳是网关&lt;/li&gt;
+&lt;li&gt;H (Host 主机路由)&lt;/li&gt;
+&lt;li&gt;U (Up 可用路由)：表示该路由状态为Up&lt;/li&gt;
+&lt;li&gt;S (Stastic 静态路由)&lt;/li&gt;
+&lt;li&gt;D (Dynamic 动态路由)&lt;/li&gt;
+&lt;li&gt;B (Black Hole 黑洞路由)：表示下一跳是空接口&lt;/li&gt;
+&lt;li&gt;L (Vlink Route)：表示Vlink类型路由&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;路径选择&lt;/h3&gt;
+&lt;h4&gt;选路规则：&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;选择优先级高的路由(Preference，越小越优先)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果路由具有相同的Preference，则选择协议内部优先级高的路由&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;如果路由具有相同优先级又属于同一协议，则优选Cost值低的路由，&lt;/p&gt;
+&lt;p&gt;若Cost相同则有条件形成负载分担，如果形成负载分担的路由条目大于大于系统限定值m，则只选择前m条作为活跃路由&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;负载分担&lt;/h4&gt;
+&lt;p&gt;包括 路由负载分担、隧道负载分担、Eth-Trunk负载分担&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将流量分担到多条链路，增加链路总带宽&lt;/li&gt;
+&lt;li&gt;负载分担的链路之间形成备份关系，提高链路可靠性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;流量转发有随机性，负载分担可能不利于业务流量的管理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;按照对连续数据包的处理方式可分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;逐包负载分担&lt;/p&gt;
+&lt;p&gt;总是选择与上一次不同的下一跳地址发送报文&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;逐流负载分担&lt;/p&gt;
+&lt;p&gt;根据IP报文中五元组信息(源地址、目的地址、源端口、目的端口、协议)进行转发，&lt;/p&gt;
+&lt;p&gt;五元组信息相同的一串报文被称为流&lt;/p&gt;
+&lt;p&gt;不同流走不通的路径&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;负载分担算法&lt;/h4&gt;
+&lt;blockquote&gt;&lt;p&gt;逐包分担均衡程度比逐流好，但可能导致报文乱序&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;等成本负载分担&lt;/p&gt;
+&lt;p&gt;ECMP(Equal-cost multi-path)&lt;/p&gt;
+&lt;p&gt;等成本负载分担是指到达同一目的地有多条等价链路，流量在这些链路上平均分配，不会考虑链路带宽差异&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;等价链路指到达目的地的cost值相同的链路/路径&lt;/p&gt;
+&lt;p&gt;等价路由指优先级和路由度量值相同的路由&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;缺点：路径间带宽差异性大时，带宽利用率低&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;非等成本负载分担&lt;/p&gt;
+&lt;p&gt;UCMP(Unequal-cost multi-path)&lt;/p&gt;
+&lt;p&gt;非成本负载分担是指到达同一目的地有多条带宽不同的等价链路，流量根据带宽按比例分摊到各条链路上平均分配，可提高带宽利用率&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;度量&lt;/h4&gt;
+&lt;blockquote&gt;&lt;p&gt;路由的度量(metric)表示出了某路由到达指定地址的代价&lt;/p&gt;
+&lt;p&gt;通常包含以下因素&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;路径长度&lt;ul&gt;
+&lt;li&gt;经过的所有链路开销综合&lt;/li&gt;
+&lt;li&gt;距离矢量路由协议中使用跳数来标示路径长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;网络带宽&lt;/li&gt;
+&lt;li&gt;负载（资源使用程度）&lt;/li&gt;
+&lt;li&gt;通信开销（线路运营成本）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;RIP协议的 metric 由条数来表示，最大15跳，若为16跳则表示目的网络不可达&lt;/p&gt;
+&lt;p&gt;OSPF和ISIS等高级路由协议可使用和接口带宽有关系的度量来表示&lt;/p&gt;
+&lt;h4&gt;下一跳&lt;/h4&gt;
+&lt;blockquote&gt;&lt;p&gt;路由表中任何路由都需要直连的下一跳&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;直连下一跳和非直连下一跳&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;直连下一跳是IGP路由协议中，由直连邻居通告的路由&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;非直连下一跳出现在默认路由和BGP场景下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RIB表将路由下放到FIB表时，迭代不直连的下一跳为直连的下一跳/接口&lt;/li&gt;
+&lt;li&gt;FIB表中任何路由都会关联到直连接口&amp;amp;直连下一跳&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;路由指向出口或下一跳&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;有类路由和无类路由&lt;/h2&gt;
+&lt;p&gt;有类路由协议：路由更新时，没有包含掩码相关信息，如RIPv1&lt;/p&gt;
+&lt;p&gt;无类路由协议：通告的路由中携带子网掩码，如RIPv2、OSPF、IS-IS、BGP&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有类查找方式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;先匹配主网路由，如果主网路由存在(匹配到了)，再继续查找是否有对应的子网，如果没有匹配的子网，则报文丢弃(不论是否有缺省路由)&lt;/p&gt;
+&lt;p&gt;若匹配不到主网路由，则走默认路由，若无缺省路由，丢弃&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无类查找方式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;直接按照掩码”最长匹配“原则进行查找，匹配不上就找缺省路由，还匹配不上就丢弃&lt;/p&gt;
+&lt;h2&gt;路由协议&lt;/h2&gt;
+&lt;blockquote&gt;&lt;p&gt;路由根据来源不同，可分为三类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直连路由：通过链路层协议发现的路由&lt;/li&gt;
+&lt;li&gt;静态路由：管理员手工指定的路由&lt;/li&gt;
+&lt;li&gt;动态路由：通过动态路由协议发现的路由&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;静态路由&lt;/h3&gt;
+&lt;p&gt;需要注意的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若静态路由协议的下一跳不是直连地址，将会引入迭代过程，增加查表延迟和CPU负荷&lt;/li&gt;
+&lt;li&gt;可为不同的静态路由配置不同的优先级(preference默认为60，越小越优先)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;动态路由&lt;/h3&gt;
+&lt;h4&gt;动态路由协议分类&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;按照应用范围：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IGP：内部网关协议（Interior Gateway Protocol）&lt;ul&gt;
+&lt;li&gt;工作在一个自治系统内&lt;/li&gt;
+&lt;li&gt;例如 RIP、OSPF、ISIS、IBGP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EGP：外部网关协议（Exterior Gateway Protocol）&lt;ul&gt;
+&lt;li&gt;工作在不同自治系统之间&lt;/li&gt;
+&lt;li&gt;例如BGPv4(EBGP)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;按照类别：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有类路由协议&lt;/li&gt;
+&lt;li&gt;无类路由协议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;按照算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;距离矢量协议&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;例如 RIP&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;特点是路由器之间不维持整网的路由信息，只知道到达邻居的路径，&lt;/p&gt;
+&lt;p&gt;所有路由条目都来自路由器通告的路由&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;优点：原理简单、易部署，路由过滤及汇总操作灵活&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;容易形成环路(因为无法判断收到的路由是不是自己发出去的)&lt;/li&gt;
+&lt;li&gt;路由收敛慢&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;路径矢量协议&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目前只有BGP&lt;/li&gt;
+&lt;li&gt;特点：所有的路由信息中都包含了路径信息(AS-Path)，以自治系统(AS)为节点&lt;/li&gt;
+&lt;li&gt;通过AS-Path防环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;链路状态协议(OSPF、IS-IS)&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;又称为最短路径优先协议，基于最短路径优先(SPF)算法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;链路状态协议区域内绝对无环&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点：路由收敛快、不易出现环路&lt;/li&gt;
+&lt;li&gt;缺点：对系统性能、带宽要求高，路由控制及过滤不灵活(相比距离矢量协议而言)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;IPV6&lt;/h2&gt;
+&lt;blockquote&gt;&lt;p&gt;128位地址，分为8块，使用&lt;code&gt;:&lt;/code&gt;分隔&lt;/p&gt;
+&lt;p&gt;例如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2031:0000:130F:0000:0000:09C0:876A:130B&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了书写方便，每组中的前导“0”都可以省略，所以上述地址可写为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2031:0:130F:0:0:9C0:876A:130B&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;地址中包含的连续两个或多个均为0的组，可以用双冒号“::”来代替，这样可以压缩IPv6地址书写时的长度，所以上述地址又可以进一步简写为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2031:0:130F::9C0:876A:130B&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;在一个IPv6地址中只能使用一次双冒号“::”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;IPv6地址结构&lt;/h3&gt;
+&lt;p&gt;一个IPv6地址可以分为如下两部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;网络前缀：n比特，相当于IPv4地址中的网络ID&lt;/li&gt;
+&lt;li&gt;接口标识：128-n比特，相当于IPv4地址中的主机ID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th style="text-align:center"&gt;n bits&lt;/th&gt;
+&lt;th&gt;128-n bits&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align:center"&gt;子网前缀（subnet prefix）&lt;/td&gt;
+&lt;td&gt;接口ID（interface ID）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;IPv6的地址分类&lt;/h3&gt;
+&lt;p&gt;IPv6主要有三种地址：&lt;/p&gt;
+&lt;h4&gt;单播地址（Unicast）&lt;/h4&gt;
+&lt;p&gt;唯一标识一个接口&lt;/p&gt;
+&lt;p&gt;一个单播地址只能标识一个接口，但一个接口可以有多个单播地址&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;链路本地地址&lt;/p&gt;
+&lt;p&gt;只在同一链路上的节点之间有效&lt;/p&gt;
+&lt;p&gt;固定前缀：FE80::/10&lt;/p&gt;
+&lt;p&gt;接口ID：使用EUI-64自动生成，也可手动配置&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;唯一本地地址&lt;/p&gt;
+&lt;p&gt;可以自己随意使用的私网地址&lt;/p&gt;
+&lt;p&gt;固定前缀：FC00::/7&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;全球单播地址&lt;/p&gt;
+&lt;p&gt;相当于IPv4中的公网地址&lt;/p&gt;
+&lt;p&gt;已分配的固定前缀：001&lt;br&gt;
+地址范围：2000::/3&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;&lt;p&gt;配置的全球单播地址不能与该地址对应的网络前缀相同，因为该类型的地址是设备预留的子网路由器任播地址。对于前缀长度是127位的IPv6地址，不受该规则限制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IEEE EUI-64格式的接口标识符&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;IPv6地址中的64位接口标识符（Interface ID）用来标识链路上的唯一接口。这个地址是从接口的链路层地址（如MAC地址）变化而来的。IPv6地址中的接口标识符是64位，而MAC地址是48位，因此需要在MAC地址的中间位置插入十六进制数。然后将U/L位（从高位开始的第7位）设置为“1”，这样就得到了EUI-64格式的接口ID。&lt;/p&gt;
+&lt;p&gt;以中间位置插入十六进制数FFFE（1111 1111 1111 1110）为例，具体转换过程如下图&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/30243deb30fdc97d399c19d2088df051.png"&gt;&lt;img data-width="501" data-height="241" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/30243deb30fdc97d399c19d2088df051.png" alt="img" /&gt;&lt;/a&gt;&lt;figcaption&gt;img&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4&gt;任播地址（Anycast）&lt;/h4&gt;
+&lt;p&gt;用来标识一组接口（通常这组接口属于不同的节点）。发送到任播地址的数据包被传输给此地址所标识的一组接口中距离源节点最近的一个接口（最“近”的一个，是指根据路由协议的距离度量）。&lt;/p&gt;
+&lt;p&gt;具体地址规定：任播地址没有独立的地址空间，它们可使用任何单播地址的格式。因此，需要一种语法来区别任播地址和单播地址。&lt;/p&gt;
+&lt;p&gt;对于接口标识全为0的IPv6地址，标准协议中定义为子网路由器任播地址（Subnet-Router anycast address）&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;任播地址不局限于子网路由器任播地址，全球单播地址也可以配置为任播地址。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;组播地址（Multicast）&lt;/h4&gt;
+&lt;p&gt;用来标识属于不同节点的一组接口，类似IPv4的组播地址。发送到组播地址的数据包被传输给此地址所标识的所有接口。&lt;/p&gt;
+&lt;p&gt;IPv6没有广播地址，广播地址的功能均由组播地址来提供。&lt;/p&gt;
+&lt;p&gt;下面是一些固定组播地址&lt;/p&gt;
+&lt;p&gt;所有节点的组播地址：FF02::1  (相当于IPv4中的广播)&lt;br&gt;
+所有路由器的组播地址：FF02::2  (相当于224.0.0.2)&lt;br&gt;
+所有OSPFV3路由器地址：FF02::5  (相当于224.0.0.5)&lt;br&gt;
+所有OSPFV3 DR 和 BDR：FF02::6  (相当于224.0.0.6)&lt;br&gt;
+所有RIP路由器：FF02::9  (相当于224.0.0.9)&lt;br&gt;
+所有PIM路由器：FF02::D  (相当于224.0.0.13)&lt;br&gt;
+被请求节点组播地址：由固定前缀(FF02::1:FFxx:xxxx/104)和单播地址的最后24位组成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;例如：IPv6---2001::1234:5678/64
+被请求节点组播地址---FF02::1:FF34:5678/104&lt;/code&gt;&lt;/pre&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/1_IP路由基础/</guid><pubDate>Tue, 17 Mar 2020 16:44:00 +0806</pubDate></item><item><title>最短路径优先算法</title><link>https://wiki.oopsky.top/wiki/archives/最短路径优先算法/</link><description>&lt;p&gt;&lt;strong&gt;一图看懂最短路径优先算法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/1dbb008de340dd7f65c59f633eee9207.gif"&gt;&lt;img data-width="283" data-height="222" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/1dbb008de340dd7f65c59f633eee9207.gif" alt="最短路径优先算法图解" /&gt;&lt;/a&gt;&lt;figcaption&gt;最短路径优先算法图解&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/最短路径优先算法/</guid><pubDate>Tue, 17 Mar 2020 16:49:00 +0806</pubDate></item><item><title>Debian中为用户添加sudo权限</title><link>https://wiki.oopsky.top/wiki/archives/Debian中为用户添加sudo权限/</link><description>&lt;blockquote&gt;&lt;p&gt;如果会使用Vi编辑器，可以忽略第二步和第四步，直接使用wq!强制保存并退出编辑器&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;先切换换到root用户  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;su
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;给 &lt;code&gt;/etc/sudoers&lt;/code&gt; 文件增加写权限：  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod +w /etc/sudoers
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;找到 &lt;code&gt;root ALL=(ALL) ALL&lt;/code&gt; 这一行，在它下面增加下面内容  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# 二者任选其一&lt;/span&gt;
+&lt;span class="c1"&gt;# userA/B替换为自己的用户名&lt;/span&gt;
+
+userA &lt;span class="nv"&gt;ALL&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;ALL&lt;span class="o"&gt;)&lt;/span&gt; ALL
+&lt;span class="c1"&gt;# 用户userA执行sudo时需要密码&lt;/span&gt;
+userB &lt;span class="nv"&gt;ALL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;NOPASSWD:ALL
+&lt;span class="c1"&gt;# 用户userB执行sudo时不需要密码&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;恢复&lt;code&gt;/etc/sudoers&lt;/code&gt;的权限  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod -w /etc/sudoers
+&lt;/pre&gt;&lt;/div&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/Debian中为用户添加sudo权限/</guid><pubDate>Thu, 19 Mar 2020 14:34:00 +0806</pubDate></item><item><title>MSYS2环境配置</title><link>https://wiki.oopsky.top/wiki/archives/MSYS2-environment-configuration/</link><description>&lt;h2&gt;1.添加国内镜像&lt;/h2&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;em&gt;这些我直接从&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/help/msys2/"&gt;https://mirrors.tuna.tsinghua.edu.cn/help/msys2/&lt;/a&gt;复制的&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;编辑 &lt;code&gt;/etc/pacman.d/mirrorlist.mingw32&lt;/code&gt; ，在文件开头添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/i686&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;编辑 &lt;code&gt;/etc/pacman.d/mirrorlist.mingw64&lt;/code&gt; ，在文件开头添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/x86_64&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;编辑 &lt;code&gt;/etc/pacman.d/mirrorlist.msys&lt;/code&gt; ，在文件开头添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/msys/$arch&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后执行 &lt;code&gt;pacman -Sy&lt;/code&gt; 刷新软件包数据即可。&lt;/p&gt;
+&lt;h2&gt;2. 配置右键菜单&lt;/h2&gt;
+&lt;p&gt;创建一个&lt;code&gt;.reg&lt;/code&gt; 文件，将下面内容复制进去，用于在注册表中创建菜单。将第四行和第六行改为自己的路径，双击注册表文件导入即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenMSYS2Here]
+"Icon"="D:\\SoftWare\\msys2\\msys2.ico"
+@="MSYS2 Here"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\OpenMSYS2Here\command]
+@="D:\\SoftWare\\msys2\\msys2_shell.cmd -mingw64 -here"&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;其他&lt;/h2&gt;
+&lt;p&gt;请移步&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&amp;amp;-MSYS2"&gt;Installing-GCC--&amp;amp;-MSYS2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.devdungeon.com/content/install-gcc-compiler-windows-msys2-cc"&gt;Install gcc compiler on Windows with MSYS2 for C/C++&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.pressc.cn/865.html"&gt;MSYS2使用汇总&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/MSYS2-environment-configuration/</guid><pubDate>Mon, 23 Mar 2020 17:09:00 +0806</pubDate></item><item><title>解决SecuceCRT连接eNSP时tab键乱码问题</title><link>https://wiki.oopsky.top/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/</link><description>&lt;ol&gt;
+&lt;li&gt;关闭会话&lt;/li&gt;
+&lt;li&gt;打开会话选项&lt;/li&gt;
+&lt;li&gt;在 连接&amp;gt;Tennet 里把 Force character at a time mode 勾选(有的汉化版里显示的是”强制每次一个字符模式“)&lt;/li&gt;
+&lt;li&gt;确定，然后重新连接&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/0770d0e4ee40f1a59d52e98a644a7d4f.png"&gt;&lt;img data-width="500" data-height="502" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/0770d0e4ee40f1a59d52e98a644a7d4f.png" alt=" " /&gt;&lt;/a&gt;&lt;figcaption&gt; &lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/</guid><pubDate>Sun, 12 Apr 2020 11:37:00 +0806</pubDate></item><item><title>2-路由信息协议(RIP)</title><link>https://wiki.oopsky.top/wiki/archives/2-路由信息协议-RIP/</link><description>&lt;blockquote&gt;&lt;p&gt;这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;RIP基本知识&lt;/h2&gt;
+&lt;h3&gt;基本原理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;基于距离矢量算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;路由器泛洪自己整个路由表给邻居路由器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;通用属性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;邻居(直连路由器)&lt;/li&gt;
+&lt;li&gt;周期更新(30s)&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Metric(度量值)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RIP协议以跳数作为度量值，每经过一台设备即被视为1跳，RIP协议的最大跳数为15跳，若为16跳即表示该路由不可达&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;广播更新&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;路由器向255.255.255.255(广播地址)发送报文，网络中所有设备都会监听该地址，RIPv1默认使用广播更新&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所有设备收到报文都需要处理，对设备负担较大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;组播更新&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;路由器向224.0.0.9发送报文，只有RIP路由器监听该组播地址，RIPv2默认使用组播更新&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;大大节省设备性能开销&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;泛洪路由表&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;路由器将从邻居学来的路由放进自己的路由表，然后通告本地路由表中全部路由信息给邻居路由器，直至整个网络全部学习到&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;RIP的定时器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;更新定时器（Upadte Timer）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间为30s&lt;/li&gt;
+&lt;li&gt;若定时器超时，则会发送一次Reponse报文&lt;/li&gt;
+&lt;li&gt;每当学到一条新路由并添加到路由表时，会启动一个老化定时器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;老化定时器（Age Timer）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间为180s&lt;/li&gt;
+&lt;li&gt;RIP设备在老化时间内若没有收到邻居发送来的Reponse报文，则认为该路由不可达&lt;/li&gt;
+&lt;li&gt;超时后，该路由度量值被置为16(表示不可达)，将从路由表中删除，但仍在RIP数据库存在，此时启动垃圾收集定时器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;垃圾收集定时器（Garbage-collect Timer）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间为120s&lt;/li&gt;
+&lt;li&gt;如果在垃圾收集时间内仍没有从同一邻居收到该不可达邻居更新，则该路由从RIP数据库中彻底删除&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;RIP的报文&lt;/h2&gt;
+&lt;h3&gt;使用UDP作为传输协议，端口520&lt;/h3&gt;
+&lt;h3&gt;报文类型&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;请求报文（Request）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;发送场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接口重置后&lt;/li&gt;
+&lt;li&gt;接口初次加入RIP&lt;/li&gt;
+&lt;li&gt;进程初次启动后&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;响应报文（Response）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;发送场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;收到Request报文后立即回应&lt;/li&gt;
+&lt;li&gt;每隔30s发送一次&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;报文格式&lt;/h3&gt;
+&lt;h4&gt;RIPv1&lt;/h4&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/6bdf834b20ed8107fd2b9df4c0a99e6f.png"&gt;&lt;img data-width="598" data-height="410" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/6bdf834b20ed8107fd2b9df4c0a99e6f.png" alt="image-20200315182148119" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200315182148119&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th&gt;字段名&lt;/th&gt;
+&lt;th&gt;长度&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Command&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Response报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Version&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;RIP的版本号：1：RIP-12：RIP-2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Must be zero&lt;/td&gt;
+&lt;td&gt;16/32比特&lt;/td&gt;
+&lt;td&gt;必须为零字段。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Address family identifier&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;地址族标识，其值为2时表示IP协议。对于Request报文，此字段值为0。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;IP Address&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;该路由的目的IP地址，可以是自然网段的地址，也可以是子网地址或主机地址。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Metric&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;路由的开销值。对于Request报文，此字段值为16。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4&gt;RIPv2&lt;/h4&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/d3d3ffa8defbf2d860e474c6d735ab7e.png"&gt;&lt;img data-width="595" data-height="401" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/d3d3ffa8defbf2d860e474c6d735ab7e.png" alt="image-20200315182254895" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200315182254895&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th&gt;字段名&lt;/th&gt;
+&lt;th&gt;长度&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Command&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Reponse报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Version&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;RIP的版本号：1：RIP-12：RIP-2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Must be zero&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;必须为零字段。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Address Family Identifier&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;地址族标识，其值为2时表示IP协议。对于Request报文，此字段值为0。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Route Tag&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;外部路由标记。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;IP Address&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;该路由的目的IP地址，可以是自然网段的地址，也可以是子网地址或主机地址。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Subnet Mask&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;目的地址的掩码。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Next Hop&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;提供一个更好的下一跳地址。如果为0.0.0.0，则表示发布此路由的路由器地址就是最优下一跳地址。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Metric&lt;/td&gt;
+&lt;td&gt;32比特&lt;/td&gt;
+&lt;td&gt;路由的开销值。对于Request报文，此字段为16。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4&gt;RIP-2的验证报文格式&lt;/h4&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/afbd045e9b1c86463651b4fe27cbee6d.png"&gt;&lt;img data-width="591" data-height="408" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/afbd045e9b1c86463651b4fe27cbee6d.png" alt="image-20200315182944369" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200315182944369&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th&gt;字段名&lt;/th&gt;
+&lt;th&gt;长度&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Command&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;标识报文的类型：1：Request报文，向邻居请求全部或部分路由信息；2：Reponse报文，发送自己全部或部分路由信息，一个Response报文中最多包含25个路由表项。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Version&lt;/td&gt;
+&lt;td&gt;8比特&lt;/td&gt;
+&lt;td&gt;RIP的版本号：1：RIP-12：RIP-2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Unused&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;保留未使用。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;0xFFFF&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;验证项标识，表示整个路由报文需要验证。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authentication Type&lt;/td&gt;
+&lt;td&gt;16比特&lt;/td&gt;
+&lt;td&gt;验证类型：2：明文验证；3：MD5验证。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Authentication&lt;/td&gt;
+&lt;td&gt;16字节&lt;/td&gt;
+&lt;td&gt;验证口令，当使用明文验证时该字段才会包含密码信息。若使用的是MD5认证，后面的路由信息都会被hash值替代，无法看到&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;RIP防环&lt;/h2&gt;
+&lt;h3&gt;水平分割（Split Horizon）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RIP从某个接口学到的路由，不会从该接口再发回给邻居路由器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;毒性逆转（Poison Reverse）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RIP从某个接口学到路由后，从原接口发回邻居路由器，并将该路由的开销设置为16（即指明该路由不可达）&lt;/li&gt;
+&lt;li&gt;利用这种方式，可以清除对方路由表中的无用路由。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;最大计数器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RIP协议的最大跳数设置为15跳，即使环路了，也不会无休止的传递&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;触发更新&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;路由信息变化时，立即向邻居路由器发送更新报文&lt;/li&gt;
+&lt;li&gt;路由下一跳不可达时，立即把此路由跳数改为16跳，并通告给邻居&lt;/li&gt;
+&lt;/ul&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/2-路由信息协议-RIP/</guid><pubDate>Thu, 23 Apr 2020 20:17:00 +0806</pubDate></item><item><title>3.1-开放式最短路径优先协议(OSPF)</title><link>https://wiki.oopsky.top/wiki/archives/3-1-开放式最短路径优先协议-OSPF/</link><description>&lt;h2&gt;OSPF协议基本原理&lt;/h2&gt;
+&lt;h3&gt;RIP和OSPF区别&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RIP是基于距离矢量算法的路由协议，OSPF是基于链路状态(基于最短路径优先算法)的路由协议；&lt;/li&gt;
+&lt;li&gt;RIP路由器所有的路由信息都是邻居路由器通告给它的，OSPF路由器的路由信息是它通过邻居通告的链路状态信息自己计算出来的；&lt;/li&gt;
+&lt;li&gt;RIPv2是无类路由协议，RIPv3是有类路由协议，OSPF是有类路由协议；&lt;/li&gt;
+&lt;li&gt;RIP收敛较慢，易于出现环路，OSPF收敛较快，不易出现环路；&lt;/li&gt;
+&lt;li&gt;RIP原理比OSPF简单；&lt;/li&gt;
+&lt;li&gt;RIP适合小型网络，OSPF适合中大型网络
+。。。
+。。。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;OSPF的特点&lt;/h3&gt;
+&lt;p&gt;适应范围广、支持掩码、快速收敛、无自环、区域划分、支持等价路由、路由分级、支持验证、以组播地址发送协议报文&lt;/p&gt;
+&lt;h3&gt;OSPF三张表作用&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;邻居表（neighbor table）：
+OSPF用邻居机制来发现和维持路由的存在，邻居表存储了双向通信的OSPF路由器列表。&lt;/li&gt;
+&lt;li&gt;拓扑表  ：
+OSPF用LSA来描述网络拓扑信息， LSA存储在LSDB中。&lt;/li&gt;
+&lt;li&gt;路由表
+对链路状态数据库进行SPF( Dijkstra)计算,然后OSPF会把它计算出来的路由安装到全局路由表，用于数据包转发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;OSPF划分区域的优势&lt;/h3&gt;
+&lt;p&gt;区域间传送的路由信息被进一步抽象，从而减少了占用的网络带宽&lt;/p&gt;
+&lt;h3&gt;OSPF路由类型&lt;/h3&gt;
+&lt;p&gt;区域内路由、区域间路由、Type1外部路由、Type2外部路由&lt;/p&gt;
+&lt;h3&gt;routerid定义及选举实例&lt;/h3&gt;
+&lt;p&gt;Router ID是一个32比特无符号整数，是一台路由器在自治系统中的唯一标识&lt;/p&gt;
+&lt;p&gt;如果没有手动配置Router ID，路由器会从当前接口的IP地址中自动选取一个作为Router ID。其选择顺序是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;优先从Loopback地址中选择最大的IP地址作为Router ID。&lt;/li&gt;
+&lt;li&gt;如果没有配置Loopback接口，则在接口地址中选取最大的IP地址作为Router ID。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;OSPF网络类型、每类区别&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;广播类型&lt;ul&gt;
+&lt;li&gt;链路层协议是Ethernet&lt;/li&gt;
+&lt;li&gt;以组播方式发送Hello报文、LSU报文和LSACK报文，以单播形式发送DD报文和LSR报文&lt;/li&gt;
+&lt;li&gt;组播地址：&lt;ul&gt;
+&lt;li&gt;224.0.0.5 ：所有OSPF路由器&lt;/li&gt;
+&lt;li&gt;224.0.0.6 ：DR/BDR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;NBMA类型(非广播且多点可达)&lt;ul&gt;
+&lt;li&gt;链路层协议是帧中继、ATM&lt;/li&gt;
+&lt;li&gt;以单播方式发送所有协议报文&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;点到多点P2MP类型&lt;ul&gt;
+&lt;li&gt;以组播方式(224.0.0.5)发送Hello报文，以单播方式发送其他协议报文&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;点到点P2P类型&lt;ul&gt;
+&lt;li&gt;链路层协议是PPP、HDLC以及帧中继的P2P类型子接口&lt;/li&gt;
+&lt;li&gt;以组播方式(224.0.0.5)发送所有协议报文&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;OSPF报文类型、报文及协议号&lt;/h3&gt;
+&lt;p&gt;OSPF用IP报文直接封装协议报文，协议号为89&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th&gt;报文类型&lt;/th&gt;
+&lt;th&gt;报文作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Hello报文&lt;/td&gt;
+&lt;td&gt;周期性发送，用来发现和维持OSPF邻居关系。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DD报文（Database Description packet）&lt;/td&gt;
+&lt;td&gt;描述本地LSDB的摘要信息，用于两台路由器进行数据库同步。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LSR报文（Link State Request packet）&lt;/td&gt;
+&lt;td&gt;用于向对方请求所需的LSA。路由器只有在OSPF邻居双方成功交换DD报文后才会向对方发出LSR报文。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LSU报文（Link State Update packet）&lt;/td&gt;
+&lt;td&gt;用于向对方发送其所需要的LSA。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LSAck报文（Link State Acknowledgment packet）&lt;/td&gt;
+&lt;td&gt;用来对收到的LSA进行确认。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;OSPF如何建立邻居关系、以及选举的过程&lt;/h3&gt;
+&lt;h4&gt;1. 邻居发现&lt;/h4&gt;
+&lt;p&gt;比较 Hello报文中的参数：&lt;/p&gt;
+&lt;p&gt;Hello/Dead发送时间间隔、区域ID、区域类型、验证等&lt;/p&gt;
+&lt;p&gt;参数一致才能开始建立邻居关系&lt;/p&gt;
+&lt;h4&gt;2. 邻居关系建立&lt;/h4&gt;
+&lt;p&gt;三步握手&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Down&lt;/p&gt;
+&lt;p&gt;初始状态&lt;/p&gt;
+&lt;p&gt;此时邻居的Router ID还没有出现在本地OSPF邻居列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Init&lt;/p&gt;
+&lt;p&gt;收到的邻居的Hello报文内Active Neighbour字域内没有包含当前路由器的Router ID，该邻居状态为Init&lt;/p&gt;
+&lt;p&gt;此时已建立好单向邻居，即邻居的Router ID出现在本地OSPF邻居列表，本地发出的Hello报文内Active Neighbour字域内包含邻居的Router ID&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;2-way&lt;/p&gt;
+&lt;p&gt;收到的邻居的Hello报文内Active Neighbour字域内包含当前路由器的Router ID，此时进入2-way状态，邻居关系建立完成&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;3. 邻接关系建立(选举)&lt;/h4&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;DR/BDR的选举&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;先比较hello报文中的优先级priority，优先级最高的为DR，次高的为BDR。不作修改默认端口上的优先级都为1，在优先级相同的情况下比较Router ID，RID最高者为DR，次高者为BDR，当你把相应端口优先级设为0时，OSPF路由器将不能再成为DR/BDR，只能为DR Other。&lt;/p&gt;
+&lt;p&gt;ROUTER-ID可以手工指定，如果没有手工指定ROUTER-ID的话，那么路由器会先看自己有没有环回接口(Loopback)，如果有环回接口，则使用环回接口上的IP地址作为自己的ROUTER-ID。如果没有环回接口的话，则会去比较自己所有物理接口上的IP地址，并从中选择最大的一个IP地址作为自己的ROUTER-ID来参与DR的选举。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在广播网络中，DR&amp;amp;BDR和网段内的每一台路由器都继续协商形成邻接关系，但DR other之间只形成邻居关系(保持在2-way状态)。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Exstart&lt;/p&gt;
+&lt;p&gt;协商主从关系&lt;/p&gt;
+&lt;p&gt;某路由器发送本链路第一个DD报文(不包含LSA摘要)，宣称自己是Master（MS=1），并规定序列号Seq=x&lt;/p&gt;
+&lt;p&gt;邻居收到该路由器的DD报文后，将该路由器的邻居状态机改为Exstart，并且回应了一个DD报文(也不包含LSA摘要)，假设邻居的&lt;strong&gt;Router ID较大&lt;/strong&gt;，所以在报文中邻居认为自己是Master，并且重新规定了序列号Seq=y。&lt;/p&gt;
+&lt;p&gt;路由器收到报文后，同意了邻居为Master，并将邻居的邻居状态机改为Exchange。该路由器使用邻居的序列号Seq=y来发送新的DD报文，该报文开始正式地传送LSA的摘要。在报文中该路由器将MS=0，说明自己是Slave。&lt;/p&gt;
+&lt;p&gt;邻居收到报文后，将该路由器的邻居状态机改为Exchange，并发送新的DD报文来描述自己的LSA摘要，此时邻居将报文的序列号改为Seq=y+1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Exchange&lt;/p&gt;
+&lt;p&gt;该路由器通过重复邻居的序列号来确认已收到邻居的报文。邻居通过将序列号Seq加1来确认已收到该路由器的报文。当邻居发送最后一个DD报文时，在报文中写上M=0&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;OSPF的状态机&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;
+&lt;th&gt;状态机&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Down&lt;/td&gt;
+&lt;td&gt;邻居会话的初始阶段。表明没有在邻居失效时间间隔内收到来自邻居设备的Hello报文。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Attempt&lt;/td&gt;
+&lt;td&gt;处于本状态时，定期向手工配置的邻居发送Hello报文。&lt;br/&gt;&lt;strong&gt;说明：&lt;/strong&gt;Attempt状态只适用于NBMA类型的接口。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Init&lt;/td&gt;
+&lt;td&gt;本状态表示已经收到了邻居的Hello报文，但是对端并没有收到本端发送的Hello报文。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2-way&lt;/td&gt;
+&lt;td&gt;互为邻居。本状态表示双方互相收到了对端发送的Hello报文，建立了邻居关系。如果不形成邻接关系则邻居状态机就停留在此状态，否则进入Exstart状态。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Exstart&lt;/td&gt;
+&lt;td&gt;协商主/从关系。建立主/从关系主要是为了保证在后续的DD报文交换中能够有序的发送。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Exchange&lt;/td&gt;
+&lt;td&gt;交换DD报文。本端设备将本地的LSDB用DD报文来描述，并发给邻居设备。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Loading&lt;/td&gt;
+&lt;td&gt;正在同步LSDB。两端设备发送LSR报文向邻居请求对方的LSA，同步LSDB。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Full&lt;/td&gt;
+&lt;td&gt;建立邻接。两端设备的LSDB已同步，本端设备和邻居设备建立了邻接状态。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;LSDB更新流程&lt;/h3&gt;
+&lt;p&gt;某路由器收到最后一个DD报文后，发现邻居的数据库中有许多LSA是自己没有的，将邻居状态机改为Loading状态。此时邻居也收到了该路由器的最后一个DD报文，但某路由器的LSA，邻居都已经有了，不需要再请求，所以直接将某路由器的邻居状态机改为Full状态。&lt;/p&gt;
+&lt;p&gt;该路由器发送LSR报文向邻居请求更新LSA。邻居用LSU报文来回应某路由器的请求。该路由器收到后，发送LSAck报文确认。&lt;/p&gt;
+&lt;h2&gt;OSPF高级特性&lt;/h2&gt;
+&lt;h3&gt;为什么会出现虚连接的定义&lt;/h3&gt;
+&lt;p&gt;vlink 是工作在Tranist Area上的连接两个ABR的虚拟链路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在实际应用中，可能会因为各方面条件的限制，无法满足所有非骨干区域与骨干区域保持连通的要求&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;为了修复断开的骨干区域&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;LSA的报文头格式&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/ca2d527a0cade4914215cb48f78e8fef.png"&gt;&lt;img data-width="479" data-height="147" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/ca2d527a0cade4914215cb48f78e8fef.png" alt="image-20200423200500636" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423200500636&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;LSA类型，每一类的定义&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/bea41b325a522c0aef87179efb736b90.png"&gt;&lt;img data-width="1000" data-height="439" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/bea41b325a522c0aef87179efb736b90.png" alt="image-20200423194011079" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423194011079&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;LSA7/5转换规则&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/35fd10eccb820de8db88f4c80972ea6d.png"&gt;&lt;img data-width="808" data-height="364" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/35fd10eccb820de8db88f4c80972ea6d.png" alt="image-20200423201015590" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423201015590&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;OSPF的选路原则&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/2cdee7cc8e0e2e40c69078b1e67759b5.png"&gt;&lt;img data-width="732" data-height="217" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/2cdee7cc8e0e2e40c69078b1e67759b5.png" alt="image-20200423194053848" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423194053848&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;FA对外部路由选路的影响&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/798f1f47f28edf6970d5e5addbb95084.png"&gt;&lt;img data-width="905" data-height="233" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/798f1f47f28edf6970d5e5addbb95084.png" alt="image-20200423201141872" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423201141872&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;OSPF常见的特殊区域定义&lt;/h3&gt;
+&lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/23d197d018c396c55fa878a9ce22b5eb.png"&gt;&lt;img data-width="1144" data-height="457" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/23d197d018c396c55fa878a9ce22b5eb.png" alt="image-20200423194602850" /&gt;&lt;/a&gt;&lt;figcaption&gt;image-20200423194602850&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3&gt;OSPF路由聚合定义&lt;/h3&gt;
+&lt;p&gt;路由聚合是指将多条具有相同IP前缀的路由聚合成一条路由&lt;/p&gt;
+&lt;h3&gt;OSPF都有哪些安全特性&lt;/h3&gt;
+&lt;p&gt;支持区域/接口认证？
+。。。&lt;/p&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/3-1-开放式最短路径优先协议-OSPF/</guid><pubDate>Thu, 23 Apr 2020 20:21:00 +0806</pubDate></item><item><title>使用JavaScript实现页面跳转</title><link>https://wiki.oopsky.top/wiki/archives/使用JavaScript实现页面跳转/</link><description>&lt;h2&gt;先贴代码&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// window.location.href方式&lt;/span&gt;
+&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;href&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://home.oopsky.top&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// window.loction.replace方式&lt;/span&gt;
+&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;https://home.oopsky.top&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// self.location方式&lt;/span&gt;
+&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;href&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://home.oopsky.top&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://home.oopsky.top&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// herf 可以省略&lt;/span&gt;
+
+&lt;span class="c1"&gt;// top.location方式&lt;/span&gt;
+&lt;span class="nx"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;href&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://home.oopsky.top&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nx"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://home.oopsky.top&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// herf 可以省略&lt;/span&gt;
+
+&lt;span class="c1"&gt;// 延迟跳转页面(2s)&lt;/span&gt;
+&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;setTimeout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;window.location=&amp;#39;https://home.oopsky.top&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2000&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;延伸知识：JavaScript中的 window.parent ,window.top,window.self&lt;/h2&gt;
+&lt;p&gt;在应用有frameset或者iframe的页面时，parent是父窗口，top是&lt;strong&gt;最顶级&lt;/strong&gt;父窗口（有的窗口中套了好几层frameset或者iframe），self是当前窗口， opener&lt;strong&gt;只能&lt;/strong&gt;是用open方法（&lt;code&gt;window.open&lt;/code&gt;）打开当前窗口的那个窗口。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;window.self&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;功能：是对当前窗口自身的引用。它和&lt;code&gt;window&lt;/code&gt;属性是等价的。&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;window.self&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注：&lt;code&gt;window&lt;/code&gt;、&lt;code&gt;self&lt;/code&gt;、&lt;code&gt;window.self&lt;/code&gt;是&lt;strong&gt;等价&lt;/strong&gt;的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;window.top&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;功能：&lt;strong&gt;返回顶层窗口&lt;/strong&gt;，即&lt;strong&gt;浏览器窗口&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;window.top&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注：如果窗口&lt;strong&gt;本身就是顶层窗口&lt;/strong&gt;，&lt;code&gt;top&lt;/code&gt;属性返回的是&lt;strong&gt;对自身的引用&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;window.parent&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;功能：&lt;strong&gt;返回父窗口&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;语法：&lt;code&gt;window.parent&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注：如果窗口&lt;strong&gt;本身是顶层窗口&lt;/strong&gt;，&lt;code&gt;parent&lt;/code&gt;属性返回的是&lt;strong&gt;对自身的引用&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在框架网页中，一般父窗口就是顶层窗口，但如果框架中还有框架，父窗口和顶层窗口就不一定相同了。&lt;/p&gt;
+&lt;p&gt;应当将框架视为窗口中的不同区域，框架是浏览器窗口中特定的部分。一个浏览器窗口可以根据你的需要分成任意多的框架，一个单个的框架也可以分成其它多个框架，即所谓的嵌套框架。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;还有种操作，可以使用&lt;code&gt;self == top&lt;/code&gt;来判断自己的页面有没有被别人引用，&lt;/p&gt;
+&lt;p&gt;然后可以使用&lt;code&gt;alert&lt;/code&gt;提示用户或者用上面的方法强制跳转到你自己的页面喽。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;举例&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;下面代码保存为 test.html&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;test&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nx"&gt;self&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="nx"&gt;top&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;页面没有被嵌套呢&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;top&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;如果test.html被加入iframe，则ifame所在页面将跳转到 test.html&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;location&lt;/code&gt;:该对象包含当前url信息，拥有多个属性。默认属性为&lt;code&gt;location.href&lt;/code&gt;,即如果设置&lt;code&gt;location="https://home.oopsky.top"&lt;/code&gt;,则等同于&lt;code&gt;location.href="https://home.oopsky.top"&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;参考文章：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.cnblogs.com/liuhongfeng/p/5231736.html"&gt;https://www.cnblogs.com/liuhongfeng/p/5231736.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.cnblogs.com/jiqing9006/p/5809713.html"&gt;https://www.cnblogs.com/jiqing9006/p/5809713.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/使用JavaScript实现页面跳转/</guid><pubDate>Fri, 05 Jun 2020 20:08:00 +0806</pubDate></item><item><title>FFmpeg常用命令及参数</title><link>https://wiki.oopsky.top/wiki/archives/FFmpeg常用命令及参数/</link><description>&lt;h3&gt;基本命令形式&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.mp4 output.avi
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;常用命令&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# 去掉视频中的音频&lt;/span&gt;
+ffmpeg -i input.mp4 -vcodec copy -an output.mp4
+&lt;span class="c1"&gt;# -an: 去掉音频；-vcodec:视频选项，一般后面加copy表示拷贝&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 提取视频中的音频&lt;/span&gt;
+ffmpeg -i input.mp4 -acodec copy -vn output.mp3
+&lt;span class="c1"&gt;# -vn: 去掉视频；-acodec: 音频选项， 一般后面加copy表示拷贝&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 音视频合成&lt;/span&gt;
+ffmpeg -y –i input.mp4 –i input.mp3 –vcodec copy –acodec copy output.mp4
+&lt;span class="c1"&gt;# -y 覆盖输出文件&lt;/span&gt;
+
+&lt;span class="c1"&gt;#剪切视频&lt;/span&gt;
+ffmpeg -ss &lt;span class="m"&gt;0&lt;/span&gt;:1:30 -t &lt;span class="m"&gt;0&lt;/span&gt;:0:20 -i input.mp4 -vcodec copy -acodec copy output.mp4
+&lt;span class="c1"&gt;# -ss 开始时间; -t 持续时间&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 视频截图&lt;/span&gt;
+ffmpeg –i test.mp4 –f image2 -t &lt;span class="m"&gt;0&lt;/span&gt;.001 -s 320x240 image-%3d.jpg
+&lt;span class="c1"&gt;# -s 设置分辨率; -f 强迫采用格式fmt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 视频分解为图片&lt;/span&gt;
+ffmpeg –i test.mp4 –r &lt;span class="m"&gt;1&lt;/span&gt; –f image2 image-%3d.jpg
+&lt;span class="c1"&gt;# -r 指定截屏频率&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 将图片合成视频&lt;/span&gt;
+ffmpeg -f image2 -i image%d.jpg output.mp4
+
+&lt;span class="c1"&gt;#视频拼接&lt;/span&gt;
+ffmpeg -f concat -i filelist.txt -c copy output.mp4
+
+&lt;span class="c1"&gt;# 将视频转为gif&lt;/span&gt;
+ffmpeg -i input.mp4 -ss &lt;span class="m"&gt;0&lt;/span&gt;:0:30 -t &lt;span class="m"&gt;10&lt;/span&gt; -s 320x240 -pix_fmt rgb24 output.gif
+&lt;span class="c1"&gt;# -pix_fmt 指定编码&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 将视频前30帧转为gif&lt;/span&gt;
+ffmpeg -i input.mp4 -vframes &lt;span class="m"&gt;30&lt;/span&gt; -f gif output.gif
+
+&lt;span class="c1"&gt;# 旋转视频&lt;/span&gt;
+ffmpeg -i input.mp4 -vf &lt;span class="nv"&gt;rotate&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;PI/2 output.mp4
+
+&lt;span class="c1"&gt;# 缩放视频&lt;/span&gt;
+ffmpeg -i input.mp4 -vf &lt;span class="nv"&gt;scale&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;iw/2:-1 output.mp4
+&lt;span class="c1"&gt;# iw 是输入的宽度， iw/2就是一半;-1 为保持宽高比&lt;/span&gt;
+
+&lt;span class="c1"&gt;#视频变速&lt;/span&gt;
+ffmpeg -i input.mp4 -filter:v &lt;span class="nv"&gt;setpts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.5*PTS output.mp4
+
+&lt;span class="c1"&gt;#音频变速&lt;/span&gt;
+ffmpeg -i input.mp3 -filter:a &lt;span class="nv"&gt;atempo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.0 output.mp3
+
+&lt;span class="c1"&gt;#音视频同时变速，但是音视频为互倒关系&lt;/span&gt;
+ffmpeg -i input.mp4 -filter_complex &lt;span class="s2"&gt;&amp;quot;[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]&amp;quot;&lt;/span&gt; -map &lt;span class="s2"&gt;&amp;quot;[v]&amp;quot;&lt;/span&gt; -map &lt;span class="s2"&gt;&amp;quot;[a]&amp;quot;&lt;/span&gt; output.mp4
+
+
+&lt;span class="c1"&gt;# 视频添加水印&lt;/span&gt;
+ffmpeg -i input.mp4 -i logo.jpg -filter_complex &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:v&lt;span class="o"&gt;][&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;:v&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;overlay&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;main_w-overlay_w-10:main_h-overlay_h-10&lt;span class="o"&gt;[&lt;/span&gt;out&lt;span class="o"&gt;]&lt;/span&gt; -map &lt;span class="o"&gt;[&lt;/span&gt;out&lt;span class="o"&gt;]&lt;/span&gt; -map &lt;span class="m"&gt;0&lt;/span&gt;:a -codec:a copy output.mp4
+&lt;span class="c1"&gt;# main_w-overlay_w-10 视频的宽度-水印的宽度-水印边距；&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 截取视频局部&lt;/span&gt;
+ffmpeg -i in.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=out_w:out_h:x:y&amp;quot;&lt;/span&gt; out.mp4
+
+&lt;span class="c1"&gt;# 截取部分视频，从[80,60]的位置开始，截取宽200，高100的视频&lt;/span&gt;
+ffmpeg -i in.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=80:60:200:100&amp;quot;&lt;/span&gt; -c:a copy out.mp4
+
+&lt;span class="c1"&gt;# 截取右下角的四分之一&lt;/span&gt;
+ffmpeg -i in.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=in_w/2:in_h/2:in_w/2:in_h/2&amp;quot;&lt;/span&gt; -c:a copy out.mp4
+
+&lt;span class="c1"&gt;# 截去底部40像素高度&lt;/span&gt;
+ffmpeg -i in.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=in_w:in_h-40&amp;quot;&lt;/span&gt; -c:a copy out.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;参数说明&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;-vcodec xvid 使用xvid压缩
+-s 320x240 指定分辨率
+-r fps 设置帧频 缺省25
+-b &amp;lt;比特率&amp;gt; 指定压缩比特
+
+-acodec aac 设定声音编码
+-ac &amp;lt;数值&amp;gt; 设定声道数，1就是单声道，2就是立体声
+-ar &amp;lt;采样率&amp;gt; 设定声音采样率，PSP只认24000
+-ab &amp;lt;比特率&amp;gt; 设定声音比特率
+-vol &amp;lt;百分比&amp;gt; 设定音量
+
+-y（覆盖输出文件
+
+-t duration 设置纪录时间 hh:mm:ss&lt;span class="o"&gt;[&lt;/span&gt;.xxx&lt;span class="o"&gt;]&lt;/span&gt;格式的记录时间也支持
+-ss position 搜索到指定的时间 &lt;span class="o"&gt;[&lt;/span&gt;-&lt;span class="o"&gt;]&lt;/span&gt;hh:mm:ss&lt;span class="o"&gt;[&lt;/span&gt;.xxx&lt;span class="o"&gt;]&lt;/span&gt;的格式也支持
+-title string 设置标题
+-author string 设置作者
+-copyright string 设置版权
+-hq 激活高质量设置
+
+-aspect aspect 设置横纵比 &lt;span class="m"&gt;4&lt;/span&gt;:3 &lt;span class="m"&gt;16&lt;/span&gt;:9 或 &lt;span class="m"&gt;1&lt;/span&gt;.3333 &lt;span class="m"&gt;1&lt;/span&gt;.7777
+-croptop size 设置顶部切除带大小 像素单位
+-cropbottom size -cropleft size -cropright size
+-padtop size 设置顶部补齐的大小 像素单位
+-padbottom size -padleft size -padright size -padcolor color 设置补齐条颜色&lt;span class="o"&gt;(&lt;/span&gt;hex,6个16进制的数，红:绿:兰排列，比如 000000代表黑色&lt;span class="o"&gt;)&lt;/span&gt;
+-bt tolerance 设置视频码率容忍度kbit/s
+-maxrate bitrate设置最大视频码率容忍度
+-minrate bitreate 设置最小视频码率容忍度
+-bufsize size 设置码率控制缓冲区大小
+-vcodec codec 强制使用codec编解码方式。 如果用copy表示原始编解码数据必须被拷贝。
+-sameq 使用同样视频质量作为源（VBR）
+-pass n 选择处理遍数（1或者2）。两遍编码非常有用。第一遍生成统计信息，第二遍生成精确的请求的码率
+-passlogfile file 选择两遍的纪录文件名为file
+
+-map file:stream 设置输入流映射
+-debug 打印特定调试信息
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;其他工具&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#查看视频信息&lt;/span&gt;
+ ffprobe example.mp4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.jianshu.com/p/11b6c4eb9e49"&gt;https://www.jianshu.com/p/11b6c4eb9e49&lt;/a&gt;&lt;/p&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/FFmpeg常用命令及参数/</guid><pubDate>Sun, 21 Jun 2020 17:01:00 +0806</pubDate></item></channel></rss>
