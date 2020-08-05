@@ -12,35 +12,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/FFmpeg常用命令及参数/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/PVE_%E5%88%9B%E5%BB%BA%E4%B8%B2%E8%A1%8C%E7%AB%AF%E5%8F%A3%E6%9D%A5%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8_xterm_js_%E8%BF%9E%E6%8E%A5%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <lastmod>2020-08-01</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<url>
+    <loc>https://wiki.oopsky.top/wiki/archives/FFmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0/</loc>
     <lastmod>2020-06-21</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/使用JavaScript实现页面跳转/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</loc>
     <lastmod>2020-06-05</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/3-1-开放式最短路径优先协议-OSPF/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/3-1-%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E5%8D%8F%E8%AE%AE-OSPF/</loc>
     <lastmod>2020-04-23</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/2-路由信息协议-RIP/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/2-%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E5%8D%8F%E8%AE%AE-RIP/</loc>
     <lastmod>2020-04-23</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/解决SecuceCRT连接eNSP时tab键乱码问题/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/%E8%A7%A3%E5%86%B3SecuceCRT%E8%BF%9E%E6%8E%A5eNSP%E6%97%B6tab%E9%94%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2020-04-12</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -54,49 +61,49 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/Debian中为用户添加sudo权限/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</loc>
     <lastmod>2020-03-19</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/最短路径优先算法/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2020-03-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/1_IP路由基础/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2020-03-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/STP配置边缘端口的两种方式/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/STP%E9%85%8D%E7%BD%AE%E8%BE%B9%E7%BC%98%E7%AB%AF%E5%8F%A3%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2020-03-05</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/Windows刷新DNS/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/Windows%E5%88%B7%E6%96%B0DNS/</loc>
     <lastmod>2020-02-17</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/添加_Windows_Terminal_到右键菜单/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/%E6%B7%BB%E5%8A%A0_Windows_Terminal_%E5%88%B0%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/</loc>
     <lastmod>2020-02-06</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/VS_Code_一键为MarkDown文档添加_Front_matter/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/VS_Code_%E4%B8%80%E9%94%AE%E4%B8%BAMarkDown%E6%96%87%E6%A1%A3%E6%B7%BB%E5%8A%A0_Front_matter/</loc>
     <lastmod>2020-01-30</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -131,7 +138,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-    <loc>https://wiki.oopsky.top/wiki/archives/在Linux完整迁移网站_数据库/</loc>
+    <loc>https://wiki.oopsky.top/wiki/archives/%E5%9C%A8Linux%E5%AE%8C%E6%95%B4%E8%BF%81%E7%A7%BB%E7%BD%91%E7%AB%99_%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2019-10-12</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
