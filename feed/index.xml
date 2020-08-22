@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link><description>永远保持热忱.</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg</url><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link></image><language>zh-CN</language><lastBuildDate>Thu, 06 Aug 2020 00:38:07 +0806</lastBuildDate><pubDate>Thu, 06 Aug 2020 00:38:07 +0806</pubDate><item><title>1-IP路由基础</title><link>https://wiki.oopsky.top/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</link><description>&lt;h2&gt;IPv4地址&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link><description>永远保持热忱.</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg</url><title>热心市民の知识库</title><link>https://wiki.oopsky.top/wiki/</link></image><language>zh-CN</language><lastBuildDate>Sun, 23 Aug 2020 00:16:56 +0806</lastBuildDate><pubDate>Sun, 23 Aug 2020 00:16:56 +0806</pubDate><item><title>1-IP路由基础</title><link>https://wiki.oopsky.top/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</link><description>&lt;h2&gt;IPv4地址&lt;/h2&gt;
 &lt;h3&gt;地址分类&lt;/h3&gt;
 &lt;p&gt;长度：32位 4 字节&lt;/p&gt;
 &lt;ul&gt;
@@ -384,10 +384,15 @@ userB ALL=NOPASSWD:ALL
 &lt;/ol&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod -w /etc/sudoers
 &lt;/pre&gt;&lt;/div&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</guid><pubDate>Thu, 19 Mar 2020 14:34:00 +0806</pubDate></item><item><title>MSYS2环境配置</title><link>https://wiki.oopsky.top/wiki/archives/MSYS2-environment-configuration/</link><description>&lt;h2&gt;1.添加国内镜像&lt;/h2&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</guid><pubDate>Thu, 19 Mar 2020 14:34:00 +0806</pubDate></item><item><title>MSYS2环境配置</title><link>https://wiki.oopsky.top/wiki/archives/MSYS2-environment-configuration/</link><description>&lt;h2&gt;1.安装&lt;/h2&gt;
+&lt;p&gt;可以从&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/msys2/distrib/"&gt;这里&lt;/a&gt;获取msys2的安装包&lt;/p&gt;
+&lt;p&gt;我当前系统为 Windows10 64位操作系统,基于x64的处理器&lt;/p&gt;
+&lt;p&gt;所以选择下载 &lt;strong&gt;msys2-x86_64-latest.exe&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;下载好后打开，指定好安装路径，一路下一步就好&lt;/p&gt;
+&lt;h2&gt;2.添加国内镜像&lt;/h2&gt;
+&lt;p&gt;安装好后在安装目录可以找到&lt;code&gt;/etc&lt;/code&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;这些我直接从&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/help/msys2/"&gt;&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/help/msys2/"&gt;https://mirrors.tuna.tsinghua.edu.cn/help/msys2/&lt;/a&gt;&lt;/a&gt;复制的&lt;/em&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h3&gt;pacman 的配置&lt;/h3&gt;
 &lt;p&gt;编辑 &lt;code&gt;/etc/pacman.d/mirrorlist.mingw32&lt;/code&gt; ，在文件开头添加：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/mingw/i686
@@ -401,7 +406,17 @@ userB ALL=NOPASSWD:ALL
 &lt;pre&gt;&lt;code&gt;Server = https://mirrors.tuna.tsinghua.edu.cn/msys2/msys/$arch
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;然后执行 &lt;code&gt;pacman -Sy&lt;/code&gt; 刷新软件包数据即可。&lt;/p&gt;
-&lt;h2&gt;2. 配置右键菜单&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;上面内容参考自&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/help/msys2/"&gt;TUNA&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;配置完上面的以后，刷新源并更新：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pacman -Syu
+&lt;span class="c1"&gt;# 遇到询问信息就输入Y即可&lt;/span&gt;
+&lt;span class="c1"&gt;# 其间终端会关闭一次，重新打开即可&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;2.安装编译环境及常用工具&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pacman -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake git wget python mingw-w64-x86_64-gtk3 mingw-w64-x86_64-glade
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3.配置右键菜单&lt;/h2&gt;
 &lt;p&gt;创建一个&lt;code&gt;.reg&lt;/code&gt; 文件，将下面内容复制进去，用于在注册表中创建菜单。将第四行和第六行改为自己的路径，双击注册表文件导入即可&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Windows Registry Editor Version 5.00
