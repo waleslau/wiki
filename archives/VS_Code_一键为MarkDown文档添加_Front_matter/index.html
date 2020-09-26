@@ -22,7 +22,7 @@
     <script>
         var ExSearchConfig = {
             root: "",
-            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/56e0f30c521b31959d3009f3809043bf.json"
+            api: "https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/b0c8d423b66aa203bf7c7dc440d83896.json"
         }
     </script>
     <script>
@@ -171,22 +171,22 @@
     		<span class="s2">&quot;layout: post&quot;</span><span class="p">,</span>
     		<span class="s2">&quot;title: $TM_FILENAME_BASE&quot;</span><span class="p">,</span>
     		<span class="err">//</span> <span class="err">自动将文件名填入此处</span>
-            <span class="err">&quot;slug:</span> <span class="err">$</span><span class="p">{</span><span class="err">TM_FILENAME_BASE/[^0-9^a-z^A-Z^\u4e00-\u9fa5]/_/g</span><span class="p">}</span><span class="s2">&quot;,</span>
-<span class="s2">            // 自动将文件名填入此处，并替换所有不是中、英文字符、数字的字符为_</span>
-<span class="s2">    		&quot;</span><span class="err">date:</span> <span class="err">$CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE</span> <span class="err">$CURRENT_HOUR:$CURRENT_MINUTE</span><span class="s2">&quot;,</span>
-<span class="s2">    		// 自动生成形似 2020/01/30 20:56 的时间戳</span>
-<span class="s2">    		&quot;</span><span class="err">author:</span> <span class="err">waleslau</span><span class="s2">&quot;,</span>
-<span class="s2">    		&quot;</span><span class="err">excerpt:</span> <span class="err">$</span><span class="p">{</span><span class="err">2:input</span> <span class="err">your</span> <span class="err">excerpt</span><span class="p">}</span><span class="s2">&quot;,</span>
-<span class="s2">    		&quot;</span><span class="err">status:</span> <span class="err">$</span><span class="p">{</span><span class="err">1|publish,hidden,draft|</span><span class="p">}</span><span class="s2">&quot;,</span>
-<span class="s2">    		// 下拉选项,帮助我指定文档状态(发布、隐藏、草稿)</span>
-<span class="s2">    		&quot;</span><span class="err">comment:</span> <span class="kc">true</span><span class="s2">&quot;,</span>
-<span class="s2">    		&quot;</span><span class="err">categories:</span> <span class="s2">&quot;,</span>
-<span class="s2">    		&quot;</span><span class="err">tags:</span> <span class="s2">&quot;,</span>
-<span class="s2">    		&quot;</span><span class="err">---</span><span class="s2">&quot;</span>
-<span class="s2">    	],</span>
-<span class="s2">    	&quot;</span><span class="err">description</span><span class="s2">&quot;: &quot;</span><span class="err">snippets</span> <span class="err">for</span> <span class="err">blog.oopsky.top</span> <span class="err">and</span> <span class="err">wiki.oopsky.top&quot;</span>
-    <span class="err">}</span>
-<span class="err">}</span>
+            <span class="s2">&quot;slug: ${TM_FILENAME_BASE/[^0-9^a-z^A-Z^\u4e00-\u9fa5]/_/g}&quot;</span><span class="p">,</span>
+            <span class="err">//</span> <span class="err">自动将文件名填入此处，并替换所有不是中、英文字符、数字的字符为_</span>
+    		<span class="s2">&quot;date: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE&quot;</span><span class="p">,</span>
+    		<span class="err">//</span> <span class="err">自动生成形似</span> <span class="mi">2020</span><span class="err">/</span><span class="mi">01</span><span class="err">/</span><span class="mi">30</span> <span class="mi">20</span><span class="err">:</span><span class="mi">56</span> <span class="err">的时间戳</span>
+    		<span class="s2">&quot;author: waleslau&quot;</span><span class="p">,</span>
+    		<span class="s2">&quot;excerpt: ${2:input your excerpt}&quot;</span><span class="p">,</span>
+    		<span class="s2">&quot;status: ${1|publish,hidden,draft|}&quot;</span><span class="p">,</span>
+    		<span class="err">//</span> <span class="err">下拉选项</span><span class="p">,</span><span class="err">帮助我指定文档状态(发布、隐藏、草稿)</span>
+    		<span class="s2">&quot;comment: true&quot;</span><span class="p">,</span>
+    		<span class="s2">&quot;categories: &quot;</span><span class="p">,</span>
+    		<span class="s2">&quot;tags: &quot;</span><span class="p">,</span>
+    		<span class="s2">&quot;---&quot;</span>
+    	<span class="p">],</span>
+    	<span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;snippets for blog.oopsky.top and wiki.oopsky.top&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <h2>3. 为代码片段添加快捷键</h2>
 <p>VS Code 默认把 Markdown 的自动补全功能给关了(因为实在是很鸡肋)，需要我们为代码片段绑定快捷键
@@ -327,7 +327,7 @@
             <div id="vcomments"></div>
         </section>
         <script>
-            window.ValineOpt = {"verify": true, "visitor": true, "recordIP": true, "notify": true, "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "enable": true, "el": "#vcomments", "placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz"};
+            window.ValineOpt = {"placeholder": "\u8bf7\u4e0d\u541d\u8d50\u6559~", "enable": true, "verify": true, "recordIP": true, "notify": true, "visitor": true, "el": "#vcomments", "appKey": "izWn3Ac4YE5DLNUzgIOKodoo", "appId": "x0FuLvAqOhV3d8bNU34zT0s4-gzGzoHsz"};
             window.ValineOpt.path = window.location.pathname;
         </script>
     
