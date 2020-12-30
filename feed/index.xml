@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>热心市民の知识库</title><link>https://waleslau.github.io/wiki/</link><description>永远保持热忱.</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg</url><title>热心市民の知识库</title><link>https://waleslau.github.io/wiki/</link></image><language>zh-CN</language><lastBuildDate>Tue, 17 Nov 2020 18:06:54 +0806</lastBuildDate><pubDate>Tue, 17 Nov 2020 18:06:54 +0806</pubDate><item><title>1-IP路由基础</title><link>https://waleslau.github.io/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</link><description>&lt;h2&gt;IPv4地址&lt;/h2&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>热心市民の知识库</title><link>https://oopsky.top/wiki/</link><description>永远保持热忱.</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/cat.jpg</url><title>热心市民の知识库</title><link>https://oopsky.top/wiki/</link></image><language>zh-CN</language><lastBuildDate>Thu, 31 Dec 2020 00:31:02 +0806</lastBuildDate><pubDate>Thu, 31 Dec 2020 00:31:02 +0806</pubDate><item><title>1-IP路由基础</title><link>https://oopsky.top/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</link><description>&lt;h2&gt;IPv4地址&lt;/h2&gt;
 &lt;h3&gt;地址分类&lt;/h3&gt;
 &lt;p&gt;长度：32位 4 字节&lt;/p&gt;
 &lt;ul&gt;
@@ -350,9 +350,9 @@
 &lt;pre&gt;&lt;code&gt;例如：IPv6---2001::1234:5678/64
 被请求节点组播地址---FF02::1:FF34:5678/104
 &lt;/code&gt;&lt;/pre&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</guid><pubDate>Tue, 17 Mar 2020 16:44:00 +0806</pubDate></item><item><title>最短路径优先算法</title><link>https://waleslau.github.io/wiki/archives/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95/</link><description>&lt;p&gt;&lt;strong&gt;一图看懂最短路径优先算法&lt;/strong&gt;&lt;/p&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/1_IP%E8%B7%AF%E7%94%B1%E5%9F%BA%E7%A1%80/</guid><pubDate>Tue, 17 Mar 2020 16:44:00 +0806</pubDate></item><item><title>最短路径优先算法</title><link>https://oopsky.top/wiki/archives/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95/</link><description>&lt;p&gt;&lt;strong&gt;一图看懂最短路径优先算法&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/1dbb008de340dd7f65c59f633eee9207.gif"&gt;&lt;img data-width="283" data-height="222" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/1dbb008de340dd7f65c59f633eee9207.gif" alt="最短路径优先算法图解" /&gt;&lt;/a&gt;&lt;figcaption&gt;最短路径优先算法图解&lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95/</guid><pubDate>Tue, 17 Mar 2020 16:49:00 +0806</pubDate></item><item><title>Debian中为用户添加sudo权限</title><link>https://waleslau.github.io/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</link><description>&lt;blockquote&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95/</guid><pubDate>Tue, 17 Mar 2020 16:49:00 +0806</pubDate></item><item><title>Debian中为用户添加sudo权限</title><link>https://oopsky.top/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</link><description>&lt;blockquote&gt;
 &lt;p&gt;如果会使用Vi编辑器，可以忽略第二步和第四步，直接使用wq!强制保存并退出编辑器&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol&gt;
@@ -384,7 +384,7 @@ userB ALL=NOPASSWD:ALL
 &lt;/ol&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod -w /etc/sudoers
 &lt;/pre&gt;&lt;/div&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</guid><pubDate>Thu, 19 Mar 2020 14:34:00 +0806</pubDate></item><item><title>MSYS2环境配置</title><link>https://waleslau.github.io/wiki/archives/MSYS2-environment-configuration/</link><description>&lt;h2&gt;1.安装&lt;/h2&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/Debian%E4%B8%AD%E4%B8%BA%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0sudo%E6%9D%83%E9%99%90/</guid><pubDate>Thu, 19 Mar 2020 14:34:00 +0806</pubDate></item><item><title>MSYS2环境配置</title><link>https://oopsky.top/wiki/archives/MSYS2-environment-configuration/</link><description>&lt;h2&gt;1.安装&lt;/h2&gt;
 &lt;p&gt;可以从&lt;a href="https://mirrors.tuna.tsinghua.edu.cn/msys2/distrib/"&gt;这里&lt;/a&gt;获取msys2的安装包&lt;/p&gt;
 &lt;p&gt;我当前系统为 Windows10 64位操作系统,基于x64的处理器&lt;/p&gt;
 &lt;p&gt;所以选择下载 &lt;strong&gt;msys2-x86_64-latest.exe&lt;/strong&gt;&lt;/p&gt;
@@ -438,14 +438,14 @@ userB ALL=NOPASSWD:ALL
 &lt;li&gt;&lt;p&gt;&lt;a href="https://www.pressc.cn/865.html"&gt;MSYS2使用汇总&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/MSYS2-environment-configuration/</guid><pubDate>Mon, 23 Mar 2020 17:09:00 +0806</pubDate></item><item><title>解决SecuceCRT连接eNSP时tab键乱码问题</title><link>https://waleslau.github.io/wiki/archives/%E8%A7%A3%E5%86%B3SecuceCRT%E8%BF%9E%E6%8E%A5eNSP%E6%97%B6tab%E9%94%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link><description>&lt;ol&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/MSYS2-environment-configuration/</guid><pubDate>Mon, 23 Mar 2020 17:09:00 +0806</pubDate></item><item><title>解决SecuceCRT连接eNSP时tab键乱码问题</title><link>https://oopsky.top/wiki/archives/%E8%A7%A3%E5%86%B3SecuceCRT%E8%BF%9E%E6%8E%A5eNSP%E6%97%B6tab%E9%94%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link><description>&lt;ol&gt;
 &lt;li&gt;关闭会话&lt;/li&gt;
 &lt;li&gt;打开会话选项&lt;/li&gt;
 &lt;li&gt;在 连接&amp;gt;Tennet 里把 Force character at a time mode 勾选(有的汉化版里显示的是”强制每次一个字符模式“)&lt;/li&gt;
 &lt;li&gt;确定，然后重新连接&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;figure&gt;&lt;a data-fancybox="gallery" href="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/0770d0e4ee40f1a59d52e98a644a7d4f.png"&gt;&lt;img data-width="500" data-height="502" src="https://cdn.jsdelivr.net/gh/waleslau/wiki@gh-pages/archives/assets/0770d0e4ee40f1a59d52e98a644a7d4f.png" alt=" " /&gt;&lt;/a&gt;&lt;figcaption&gt; &lt;/figcaption&gt;&lt;/figure&gt;&lt;/p&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E8%A7%A3%E5%86%B3SecuceCRT%E8%BF%9E%E6%8E%A5eNSP%E6%97%B6tab%E9%94%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid><pubDate>Sun, 12 Apr 2020 11:37:00 +0806</pubDate></item><item><title>2-路由信息协议(RIP)</title><link>https://waleslau.github.io/wiki/archives/2-%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E5%8D%8F%E8%AE%AE-RIP/</link><description>&lt;blockquote&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E8%A7%A3%E5%86%B3SecuceCRT%E8%BF%9E%E6%8E%A5eNSP%E6%97%B6tab%E9%94%AE%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid><pubDate>Sun, 12 Apr 2020 11:37:00 +0806</pubDate></item><item><title>2-路由信息协议(RIP)</title><link>https://oopsky.top/wiki/archives/2-%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E5%8D%8F%E8%AE%AE-RIP/</link><description>&lt;blockquote&gt;
 &lt;p&gt;这个是思维导图直接转换的MD格式，看起来有点奇怪，不过我懒得改了&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;RIP基本知识&lt;/h2&gt;
@@ -705,7 +705,7 @@ userB ALL=NOPASSWD:ALL
 &lt;li&gt;路由信息变化时，立即向邻居路由器发送更新报文&lt;/li&gt;
 &lt;li&gt;路由下一跳不可达时，立即把此路由跳数改为16跳，并通告给邻居&lt;/li&gt;
 &lt;/ul&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/2-%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E5%8D%8F%E8%AE%AE-RIP/</guid><pubDate>Thu, 23 Apr 2020 20:17:00 +0806</pubDate></item><item><title>3.1-开放式最短路径优先协议(OSPF)</title><link>https://waleslau.github.io/wiki/archives/3-1-%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E5%8D%8F%E8%AE%AE-OSPF/</link><description>&lt;h2&gt;OSPF协议基本原理&lt;/h2&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/2-%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E5%8D%8F%E8%AE%AE-RIP/</guid><pubDate>Thu, 23 Apr 2020 20:17:00 +0806</pubDate></item><item><title>3.1-开放式最短路径优先协议(OSPF)</title><link>https://oopsky.top/wiki/archives/3-1-%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E5%8D%8F%E8%AE%AE-OSPF/</link><description>&lt;h2&gt;OSPF协议基本原理&lt;/h2&gt;
 &lt;h3&gt;RIP和OSPF区别&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;RIP是基于距离矢量算法的路由协议，OSPF是基于链路状态(基于最短路径优先算法)的路由协议；&lt;/li&gt;
@@ -909,7 +909,7 @@ OSPF用LSA来描述网络拓扑信息， LSA存储在LSDB中。&lt;/li&gt;
 &lt;h3&gt;OSPF都有哪些安全特性&lt;/h3&gt;
 &lt;p&gt;支持区域/接口认证？
 。。。&lt;/p&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/3-1-%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E5%8D%8F%E8%AE%AE-OSPF/</guid><pubDate>Thu, 23 Apr 2020 20:21:00 +0806</pubDate></item><item><title>使用JavaScript实现页面跳转</title><link>https://waleslau.github.io/wiki/archives/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</link><description>&lt;h2&gt;先贴代码&lt;/h2&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/3-1-%E5%BC%80%E6%94%BE%E5%BC%8F%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88%E5%8D%8F%E8%AE%AE-OSPF/</guid><pubDate>Thu, 23 Apr 2020 20:21:00 +0806</pubDate></item><item><title>使用JavaScript实现页面跳转</title><link>https://oopsky.top/wiki/archives/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</link><description>&lt;h2&gt;先贴代码&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// window.location.href方式&lt;/span&gt;
 &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;href&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://home.oopsky.top&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
@@ -978,7 +978,7 @@ OSPF用LSA来描述网络拓扑信息， LSA存储在LSDB中。&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.cnblogs.com/liuhongfeng/p/5231736.html"&gt;https://www.cnblogs.com/liuhongfeng/p/5231736.html&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.cnblogs.com/jiqing9006/p/5809713.html"&gt;https://www.cnblogs.com/jiqing9006/p/5809713.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</guid><pubDate>Fri, 05 Jun 2020 20:08:00 +0806</pubDate></item><item><title>FFmpeg常用命令及参数</title><link>https://waleslau.github.io/wiki/archives/FFmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0/</link><description>&lt;h3&gt;基本命令形式&lt;/h3&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/</guid><pubDate>Fri, 05 Jun 2020 20:08:00 +0806</pubDate></item><item><title>FFmpeg常用命令及参数</title><link>https://oopsky.top/wiki/archives/FFmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0/</link><description>&lt;h3&gt;基本命令形式&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ffmpeg -i input.mp4 output.avi
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h3&gt;常用命令&lt;/h3&gt;
@@ -1096,7 +1096,7 @@ ffmpeg -i in.mp4 -filter:v &lt;span class="s2"&gt;&amp;quot;crop=in_w:in_h-40&am
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;参考：&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.jianshu.com/p/11b6c4eb9e49"&gt;https://www.jianshu.com/p/11b6c4eb9e49&lt;/a&gt;&lt;/p&gt;
-</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/FFmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0/</guid><pubDate>Sun, 21 Jun 2020 17:01:00 +0806</pubDate></item><item><title>PVE 创建串行端口来支持使用 xterm.js 连接到虚拟机</title><link>https://waleslau.github.io/wiki/archives/PVE_%E5%88%9B%E5%BB%BA%E4%B8%B2%E8%A1%8C%E7%AB%AF%E5%8F%A3%E6%9D%A5%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8_xterm_js_%E8%BF%9E%E6%8E%A5%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA/</link><description>&lt;h4&gt;前言&lt;/h4&gt;
+</description><author>waleslau@foxmail.com (waleslau)</author><guid isPermaLink="true">/wiki/archives/FFmpeg%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0/</guid><pubDate>Sun, 21 Jun 2020 17:01:00 +0806</pubDate></item><item><title>PVE 创建串行端口来支持使用 xterm.js 连接到虚拟机</title><link>https://oopsky.top/wiki/archives/PVE_%E5%88%9B%E5%BB%BA%E4%B8%B2%E8%A1%8C%E7%AB%AF%E5%8F%A3%E6%9D%A5%E6%94%AF%E6%8C%81%E4%BD%BF%E7%94%A8_xterm_js_%E8%BF%9E%E6%8E%A5%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA/</link><description>&lt;h4&gt;前言&lt;/h4&gt;
 &lt;p&gt;软件版本：PVE 6.2&lt;/p&gt;
 &lt;p&gt;虽然 PVE 支持使用 xterm.js 连接到虚拟机，但我发现目前是无法直接使用这个功能的，必需要配置一下&lt;/p&gt;
 &lt;h4&gt;1. 关闭 VM，然后在 PVE Host 中为虚拟机添加串行端口&lt;/h4&gt;
